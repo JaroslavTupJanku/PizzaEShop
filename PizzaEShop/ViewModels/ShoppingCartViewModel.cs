@@ -1,4 +1,5 @@
-﻿using PizzaEShop.Core.Enums;
+﻿using PizzaEShop.Core;
+using PizzaEShop.Core.Enums;
 using PizzaEShop.Data.Entity;
 using System;
 using System.Collections.Generic;
@@ -11,12 +12,43 @@ namespace PizzaEShop.ViewModels
 {
     public class ShoppingCartViewModel
     {
-        public ObservableCollection<PizzaEntity> PizzaEntities { get; } = new();
+        private readonly PizzaManager manager;
+
+        public ObservableCollection<OrderEntity> OrderEntities { get; private set; } = null!;
         public string HOvno { get; } = "HOVNO";
-        public ShoppingCartViewModel()
+
+        public ShoppingCartViewModel(PizzaManager manager)
         {
-            PizzaEntities.Add(new PizzaEntity(PizzaType.Fungi, DateTime.Now, new List<int> { 1, 2, 3, 4, 5, 6 }, "Purkynova 12"));
-            PizzaEntities.Add(new PizzaEntity(PizzaType.Fungi, DateTime.Now, new List<int> { 1, 2, 3, 4, 5, 6 }, "Purkynova 12"));
+            this.manager = manager;
+            AddTest();
+            UpdateList();
         }
+
+        public void AddTest()
+        {
+
+            var manager = new PizzaManager();
+
+            var entity = new OrderEntity()
+            {
+                Address = "BAddress",
+                Time = DateTime.Now,
+                Pizzas = new List<PizzaEntity>()
+                {
+                    new PizzaEntity()
+                    {
+                        Gorgonzola = 2
+                    }
+                }
+            };
+            _ = Task.Run(async () => await manager.PostOrder(entity));
+        }
+
+        public  void UpdateList()
+        {
+            var list = Task.Run(async () => await manager.GetOrders());
+            OrderEntities = new ObservableCollection<OrderEntity>(test);
+        }
+
     }
 }

@@ -4,22 +4,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace PizzaEShop.Data.Entity
 {
-    public  class PizzaEntity
-    {
-        public DateTime Time { get; set; }
+    public class PizzaEntity
+    {       
+        //Pizza
+        public int Id { get; set; }
+        public OrderEntity Order { get; set; }
         public PizzaType PizzaType { get; set; }
-        public string Adresa { get; set; }
-        public List<int> IngredienceValue { get; set; }
+        public double PizzaCost { get; set; }   
 
-        public PizzaEntity(PizzaType pizzaType, DateTime time, List<int> ingredienceValue, string adresa)
-        {
-            IngredienceValue = ingredienceValue;
-            Adresa = adresa;
-            PizzaType = pizzaType;
-            Time = time;
-        }
+        //Ingredience
+        public int Mozzarela { get; set; }
+        public int Gorgonzola { get; set; }
+        public int Hermelin { get; set; }
+        public int Vejce { get; set; }
+        public int Kukurice { get; set; }
+        public int Rukola { get; set; }
+        public int Salam {get; set;}
+        public int Losos { get; set; }
+        public int Zizala { get; set; }
     }
 }

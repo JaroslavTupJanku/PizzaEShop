@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using PizzaEShop.Core;
 using PizzaEShop.Models;
 using PizzaEShop.ViewModels;
 using System;
@@ -30,6 +31,7 @@ namespace PizzaEShop
                     services.AddSingleton<OrderBuilder>();
                     services.AddSingleton<PizzaMenuViewModel>();
                     services.AddSingleton<ShoppingCartViewModel>();
+                    services.AddSingleton<PizzaManager>();
                 }).Build();
         }
 
