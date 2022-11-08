@@ -2,8 +2,8 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:materialIcons="clr-namespace:Material.Icons.WPF;assembly=Material.Icons.WPF"
              xmlns:vm="clr-namespace:PizzaEShop.ViewModels"
-             xmlns:icon="clr-namespace:XamlIconLibrary;assembly=XamlIconLibrary"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance Type=vm:ShoppingCartViewModel}"
@@ -38,7 +38,7 @@
 
                             <Border BorderThickness="1" Grid.Row="1" BorderBrush="LightGray" Padding="5">
                                 <StackPanel Orientation="Horizontal" Grid.Row="1">
-                                    <icon:GoogleMaterialIcon Icon="Settings" Height="30" Width="30"/>
+                                    <materialIcons:MaterialIcon Kind="Settings"/>
                                     <Label Content="{Binding Path=Address}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
                                 </StackPanel>
                             </Border>
@@ -78,7 +78,7 @@
                             </StackPanel>
 
                             <Button Grid.Column="2" Grid.Row="2" HorizontalAlignment="Right" Width="160" Background="LawnGreen" BorderThickness="0" Command="{Binding DataContext.Command, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" CommandParameter="{Binding Path=PizzaList[0].Type}" Margin="0,10,30,10" Padding="5">
-                                <icon:GoogleMaterialIcon Icon="Replay" Height="40" Width="40"/>
+                                <materialIcons:MaterialIcon Kind="AddShoppingCart" Height="40" Width="40"/>
                                 <Button.Resources>
                                     <Style TargetType="{x:Type Border}">
                                         <Setter Property="CornerRadius" Value="10"/>

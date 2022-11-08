@@ -15,6 +15,7 @@ namespace PizzaEShop.Core.Enums
         Kukřice, 
         Rukola, 
         Salám, 
-        Losos
+        Losos,
+        Žížaly
     }
 }

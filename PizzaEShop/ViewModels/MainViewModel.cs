@@ -1,4 +1,4 @@
-﻿using GalaSoft.MvvmLight.Command;
+﻿using CommunityToolkit.Mvvm.Input;
 using PizzaEShop.Commands;
 using PizzaEShop.Models;
 using PizzaEShop.View.Controls;
@@ -35,8 +35,8 @@ namespace PizzaEShop.ViewModels
 
         public MainViewModel()
         {
-            GoToMainPageCMD = new RelayCommand(GetMainPage);
-            GoToShoppingCartCMD = new RelayCommand(GetShoppingCart);
+            GoToMainPageCMD = new RelayCommand(GetMainPage!);
+            GoToShoppingCartCMD = new RelayCommand(GetShoppingCart!);
         }
 
         private void GetMainPage() => Control = new PizzaMenuControl();

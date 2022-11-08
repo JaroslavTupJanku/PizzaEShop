@@ -12,22 +12,22 @@ namespace PizzaEShop.ViewModels
 {
     public class ShoppingCartViewModel
     {
-        private readonly PizzaManager manager;
+        private readonly OrderManager manager;
 
         public ObservableCollection<OrderEntity> OrderEntities { get; private set; } = null!;
         public string HOvno { get; } = "HOVNO";
 
-        public ShoppingCartViewModel(PizzaManager manager)
+        public ShoppingCartViewModel(OrderManager manager)
         {
             this.manager = manager;
-            AddTest();
+            //AddTest();
             UpdateList();
         }
 
-        public void AddTest()
+        public async void AddTest()
         {
 
-            var manager = new PizzaManager();
+            var manager = new OrderManager();
 
             var entity = new OrderEntity()
             {
@@ -41,13 +41,13 @@ namespace PizzaEShop.ViewModels
                     }
                 }
             };
-            _ = Task.Run(async () => await manager.PostOrder(entity));
+            //await Task.Run(() => manager.PostOrder(entity));
         }
 
         public  void UpdateList()
         {
             var list = Task.Run(async () => await manager.GetOrders());
-            OrderEntities = new ObservableCollection<OrderEntity>(test);
+            OrderEntities = new ObservableCollection<OrderEntity>(list.Result);
         }
 
     }

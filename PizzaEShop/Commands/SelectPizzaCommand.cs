@@ -14,9 +14,9 @@ namespace PizzaEShop.Commands
 {
     public class SelectPizzaCommand : ICommand
     {
-        private readonly OrderBuilder builder;
+        private readonly PizzaBuilder builder;
 
-        public SelectPizzaCommand(OrderBuilder builder)
+        public SelectPizzaCommand(PizzaBuilder builder)
         {
             this.builder = builder;
         }

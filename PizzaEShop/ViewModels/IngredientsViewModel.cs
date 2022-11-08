@@ -1,4 +1,4 @@
-﻿using GalaSoft.MvvmLight.Command;
+﻿using CommunityToolkit.Mvvm.Input;
 using PizzaEShop.Commands;
 using PizzaEShop.Core.Enums;
 using PizzaEShop.Models;
@@ -18,7 +18,7 @@ namespace PizzaEShop.ViewModels
     public class IngredientsViewModel
     {
         private readonly OrdersManager manager;
-        private readonly OrderBuilder builder;
+        private readonly PizzaBuilder builder;
 
         public ObservableCollection<Ingredient> Ingredients { get; private set; } = new ObservableCollection<Ingredient>();
         public ICommand AddIngredientCMD { get; } = new AddIngredientCommand();
@@ -27,7 +27,7 @@ namespace PizzaEShop.ViewModels
         public RelayCommand<ICloseable> AddOrderAndContinueCommand { get; }
 
 
-        public IngredientsViewModel(OrdersManager manager, OrderBuilder builder)
+        public IngredientsViewModel(OrdersManager manager, PizzaBuilder builder)
         {
             Ingredients.Add(new Ingredient(IngredientType.Mozzarela, 45));
             Ingredients.Add(new Ingredient(IngredientType.Hermelín, 35));
@@ -37,8 +37,8 @@ namespace PizzaEShop.ViewModels
             this.manager = manager;
             this.builder = builder;
 
-            AddOrderCommand = new RelayCommand<ICloseable>(ShowShoppingCart);
-            AddOrderAndContinueCommand = new RelayCommand<ICloseable>(AddOrderToManger);
+            AddOrderCommand = new RelayCommand<ICloseable>(ShowShoppingCart!);
+            AddOrderAndContinueCommand = new RelayCommand<ICloseable>(AddOrderToManger!);
         }
         
         private void AddOrderToManger(ICloseable window)

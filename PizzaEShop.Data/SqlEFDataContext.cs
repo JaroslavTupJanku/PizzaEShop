@@ -12,7 +12,8 @@ namespace PizzaEShop.Data
 {
     public class SqlEFDataContext : DbContext
     {
-        public DbSet<OrderEntity> Orders { get; set; } = null!;
+        public DbSet<OrderEntity> Orders { get; set; }
+        public DbSet<PizzaEntity> Pizzas { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var folder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);

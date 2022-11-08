@@ -15,7 +15,7 @@ namespace PizzaEShop.ViewModels
         public ICommand Command { get; }
         public List<Pizza> PizzaList { get; } = new List<Pizza>();
 
-        public PizzaMenuViewModel(OrderBuilder builder)
+        public PizzaMenuViewModel(PizzaBuilder builder)
         {
             Command = new SelectPizzaCommand(builder);
 
