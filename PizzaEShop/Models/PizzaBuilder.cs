@@ -27,7 +27,7 @@ namespace PizzaEShop.Models
         public IPizzaBuilder SetIngrediets(IngredientType key, int value)
         {
             this.Ingredients.Add(key, value);
-            IngredientPrice += value * 10;
+            IngredientPrice += value * (int)key;
             return this;
         }
 
@@ -39,12 +39,17 @@ namespace PizzaEShop.Models
 
         public PizzaDTO Build()
         {
-            if (Type is PizzaType.None || Ingredients is null)
-            {
-                throw new Exception("Objednavka nelze vytvorit");
-            }
-
-            return new PizzaDTO(this);
+            try     { return new PizzaDTO(this); } 
+            catch   { throw new Exception("Objednavka nelze vytvorit"); }
+            finally { ResetBuilder(); }
         }
+
+        private void ResetBuilder()
+        {
+            IngredientPrice = 0;
+            Type = PizzaType.None;
+            Ingredients = new Dictionary<IngredientType, int>();
+        }
+
     }
 }

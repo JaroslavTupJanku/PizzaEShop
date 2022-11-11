@@ -14,12 +14,13 @@ using System.Windows.Input;
 
 namespace PizzaEShop.ViewModels
 {
-    public class PizzaMenuViewModel
+    public class PizzaMenuViewModel : IControlViewModel
     {
         private readonly IPizzaBuilder builder;
 
         public RelayCommand<PizzaType> Command { get; }
         public List<PizzaDTO> PizzaList { get; } = new List<PizzaDTO>();
+        public ControlType ControlType => ControlType.PizzaMenuControl;
 
         public PizzaMenuViewModel(IPizzaBuilder builder)
         {
@@ -38,8 +39,9 @@ namespace PizzaEShop.ViewModels
 
         public void ShowIngredientsWindow(PizzaType type)
         {
-            builder.SetPizzaType(type);
             var view = new IngredientsWindow();
+
+            builder.SetPizzaType(type);
             view.ShowDialog();
         }
     }

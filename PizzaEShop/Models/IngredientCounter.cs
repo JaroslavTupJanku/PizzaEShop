@@ -11,7 +11,6 @@ namespace PizzaEShop.Models
     public class IngredientCounter : INotifyPropertyChanged
     {
         private readonly IngredientType ingredient;
-        private readonly int prize;
         private int count = 0;
 
         public IngredientType IngredientType => ingredient;

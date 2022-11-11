@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using PizzaEShop.Core.Enums;
 using PizzaEShop.Core.Interfaces;
-using PizzaEShop.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,14 +19,14 @@ using System.Windows.Shapes;
 namespace PizzaEShop.View.Controls
 {
     /// <summary>
-    /// Interaction logic for ShoppingCartControl.xaml
+    /// Interaction logic for OrderHistoryControl.xaml
     /// </summary>
-    public partial class ShoppingCartControl : UserControl
+    public partial class OrderHistoryControl : UserControl
     {
-        public ShoppingCartControl()
+        public OrderHistoryControl()
         {
             DataContext = App.AppHost!.Services.GetServices<IControlViewModel>()
-                                      .FirstOrDefault(x => x.ControlType == ControlType.ShoppingCartControl);
+                          .FirstOrDefault(x => x.ControlType == ControlType.OrderHistoryContoro);
             InitializeComponent();
         }
     }

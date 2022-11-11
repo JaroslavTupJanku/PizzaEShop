@@ -26,12 +26,17 @@ namespace PizzaEShop
             AppHost = Host.CreateDefaultBuilder()
                 .ConfigureServices((hostContext, services) =>
                 {
+                    services.AddSingleton<ControlProvider>();
                     services.AddSingleton<OrderManager>();
+                    services.AddSingleton<ShoppingCart>();
                     services.AddSingleton<IPizzaBuilder, PizzaBuilder>();
                     services.AddSingleton<MainViewModel>();
-                    services.AddSingleton<IngredientsViewModel>();
-                    services.AddSingleton<PizzaMenuViewModel>();
-                    services.AddSingleton<ShoppingCartViewModel>();
+
+                    services.AddTransient<IControlViewModel, FavoritOrderViewModel>();
+                    services.AddTransient<IControlViewModel, OrderHistoryViewModel>();
+                    services.AddTransient<IControlViewModel, ShoppingCartViewModel>();
+                    services.AddTransient<IControlViewModel, PizzaMenuViewModel>();
+                    services.AddTransient<IngredientsViewModel>();
                 }).Build();
         }
 

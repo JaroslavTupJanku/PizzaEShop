@@ -16,23 +16,24 @@ namespace PizzaEShop.ViewModels
 {
     public class MainViewModel : INotifyPropertyChanged
     {
-        private UserControl? control = new ShoppingCartControl();
+        public UserControl userControl = new PizzaMenuControl();
         public RelayCommand GoToShoppingCartCMD { get; }
         public RelayCommand GoToMainPageCMD { get; }
 
-        public UserControl? Control 
-        { 
-            get => control;
-            private set
-            { 
-                control = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Control)));
-            }  
-        
-        } 
-
-        public MainViewModel()
+        public UserControl? Control
         {
+            get => userControl;
+            private set
+            {
+                userControl = value!;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Control)));
+            }
+        }
+
+        public MainViewModel(ControlProvider provider)
+        {
+            provider.OnUserControlChanged += Settings_OnUserControlChanged;
+
             GoToMainPageCMD = new RelayCommand(GetMainPage!);
             GoToShoppingCartCMD = new RelayCommand(GetShoppingCart!);
         }
@@ -41,6 +42,11 @@ namespace PizzaEShop.ViewModels
         private void GetShoppingCart() => Control = new ShoppingCartControl();
 
         public event PropertyChangedEventHandler? PropertyChanged;
+
+        private void Settings_OnUserControlChanged(object? sender, UserControl e)
+        {
+            this.Control = e;
+        }
 
     }
 }

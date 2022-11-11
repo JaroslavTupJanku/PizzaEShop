@@ -4,6 +4,7 @@ using PizzaEShop.Core.Enums;
 using PizzaEShop.Core.Interfaces;
 using PizzaEShop.Models;
 using PizzaEShop.View;
+using PizzaEShop.View.Controls;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,17 +19,18 @@ namespace PizzaEShop.ViewModels
 {
     public class IngredientsViewModel
     {
-        private readonly OrderManager manager;
+        private readonly ShoppingCart cart;
+        private readonly ControlProvider provider;
         private readonly IPizzaBuilder builder;
 
         public ObservableCollection<IngredientCounter> Ingredients { get; private set; } = new ObservableCollection<IngredientCounter>();
         public RelayCommand<IngredientType> AddIngredientCMD { get; }
-        public RelayCommand<IngredientType> RemoveIngredientCMD { get; } 
+        public RelayCommand<IngredientType> RemoveIngredientCMD { get; }
         public RelayCommand<ICloseable> AddOrderCommand { get; }
         public RelayCommand<ICloseable> AddOrderAndContinueCommand { get; }
 
 
-        public IngredientsViewModel(OrderManager manager, IPizzaBuilder builder)
+        public IngredientsViewModel(IPizzaBuilder builder, ShoppingCart cart, ControlProvider provider)
         {
             Ingredients.Add(new IngredientCounter(IngredientType.Mozzarela));
             Ingredients.Add(new IngredientCounter(IngredientType.Hermelín));
@@ -40,28 +42,42 @@ namespace PizzaEShop.ViewModels
             Ingredients.Add(new IngredientCounter(IngredientType.Salám));
             Ingredients.Add(new IngredientCounter(IngredientType.Rukola));
 
-            this.manager = manager;
-            this.builder = builder;
-
             AddIngredientCMD = new RelayCommand<IngredientType>((type) => AddIngredience(type));
             RemoveIngredientCMD = new RelayCommand<IngredientType>((type) => RemoveIngredience(type));
-            AddOrderCommand = new RelayCommand<ICloseable>(ShowShoppingCart!);
-            AddOrderAndContinueCommand = new RelayCommand<ICloseable>(AddOrderToManger!);
+            AddOrderCommand = new RelayCommand<ICloseable>(GoToShoppingCart!);
+            AddOrderAndContinueCommand = new RelayCommand<ICloseable>(AddPizzaToCart!);
+
+            this.builder = builder;
+            this.cart = cart;
+            this.provider = provider;
         }
 
         public void AddIngredience(IngredientType type) => Ingredients.Where(x => x.IngredientType == type).FirstOrDefault()!.Add();
         public void RemoveIngredience(IngredientType type) => Ingredients.Where(x => x.IngredientType == type).FirstOrDefault()!.Remove();
-
-        private void AddOrderToManger(ICloseable window)
+        private void GoToShoppingCart(ICloseable window)
         {
+            AddPizzaToCart(window);
+            provider.SetPizzaControl(ControlType.ShoppingCartControl);
             window.Close();
-            //manager.AddOrder(builder.SetIngrediets(Ingredients.ToArray()).Build());
         }
 
-        private void ShowShoppingCart(ICloseable window)
+
+        // DO JEDNE METODZ
+        private void AddPizzaToCart(ICloseable window)
         {
-            //var view = new ShoppingCartWindow();
-            AddOrderToManger(window);
+            if (builder.Type == PizzaType.None)
+                throw new Exception("No Pizza Added.");
+
+            Ingredients.ToList().ForEach(counter =>
+            {
+                if (counter.Count > 0)
+                    builder.SetIngrediets(counter.IngredientType, counter.Count);
+            });
+
+            cart.Add(builder.Build());
+            provider.SetPizzaControl(ControlType.PizzaMenuControl);
+            window.Close();
         }
+
     }
 }

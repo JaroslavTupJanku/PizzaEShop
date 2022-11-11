@@ -1,5 +1,6 @@
 ﻿using PizzaEShop.Core;
 using PizzaEShop.Core.Enums;
+using PizzaEShop.Core.Interfaces;
 using PizzaEShop.Data.Entity;
 using System;
 using System.Collections.Generic;
@@ -10,12 +11,12 @@ using System.Threading.Tasks;
 
 namespace PizzaEShop.ViewModels
 {
-    public class ShoppingCartViewModel
+    public class ShoppingCartViewModel : IControlViewModel
     {
         private readonly OrderManager manager;
 
         public ObservableCollection<OrderEntity> OrderEntities { get; private set; } = null!;
-        public string HOvno { get; } = "HOVNO";
+        public ControlType ControlType { get; } = ControlType.ShoppingCartControl;
 
         public ShoppingCartViewModel(OrderManager manager)
         {

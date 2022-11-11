@@ -1,4 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using PizzaEShop.Core.Enums;
+using PizzaEShop.Core.Interfaces;
+using PizzaEShop.Data.Entity;
 using PizzaEShop.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -24,7 +27,8 @@ namespace PizzaEShop.View.Controls
     {
         public PizzaMenuControl()
         {
-            DataContext = App.AppHost!.Services.GetRequiredService<PizzaMenuViewModel>();
+            DataContext = App.AppHost!.Services.GetServices<IControlViewModel>()
+                             .FirstOrDefault(x => x.ControlType == ControlType.PizzaMenuControl);
             InitializeComponent();
         }
     }
