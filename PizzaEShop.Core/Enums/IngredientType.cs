@@ -8,14 +8,14 @@ namespace PizzaEShop.Core.Enums
 {
     public enum IngredientType
     {
-        Mozzarela,
-        Gorgonzola,
-        Hermelín,
-        Vejce,
-        Kukřice, 
-        Rukola, 
-        Salám, 
-        Losos,
-        Žížaly
+        Mozzarela = 18,
+        Gorgonzola = 35,
+        Hermelín = 25,
+        Vejce = 10,
+        Kukřice = 12, 
+        Rukola = 8, 
+        Salám = 16, 
+        Losos = 30,
+        Žížaly = 5
     }
 }

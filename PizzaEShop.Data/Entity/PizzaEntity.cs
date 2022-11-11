@@ -11,13 +11,11 @@ namespace PizzaEShop.Data.Entity
 {
     public class PizzaEntity
     {
-        //Pizza
         public int Id { get; set; }
         public OrderEntity Order { get; set; } = null!;
         public PizzaType PizzaType { get; set; }
-        public double PizzaCost { get; set; }
+        public int PizzaCost { get; set; }
 
-        //Ingredience
         public int Mozzarela { get; set; }
         public int Gorgonzola { get; set; }
         public int Hermelin { get; set; }

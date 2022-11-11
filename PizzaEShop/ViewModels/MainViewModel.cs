@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.Input;
-using PizzaEShop.Commands;
 using PizzaEShop.Models;
 using PizzaEShop.View.Controls;
 using System;
@@ -18,9 +17,9 @@ namespace PizzaEShop.ViewModels
     public class MainViewModel : INotifyPropertyChanged
     {
         private UserControl? control = new ShoppingCartControl();
-
         public RelayCommand GoToShoppingCartCMD { get; }
         public RelayCommand GoToMainPageCMD { get; }
+
         public UserControl? Control 
         { 
             get => control;
@@ -31,7 +30,6 @@ namespace PizzaEShop.ViewModels
             }  
         
         } 
-        public List<Pizza> PizzaList { get; } = new List<Pizza>();
 
         public MainViewModel()
         {

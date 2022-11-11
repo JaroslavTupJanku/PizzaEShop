@@ -40,11 +40,12 @@
                             <ColumnDefinition Width="80"/>
                             <ColumnDefinition Width="50"/>
                         </Grid.ColumnDefinitions>
-                        <Button  Background="Transparent" BorderThickness="0" Content="{StaticResource remove}" />
+                        <Button Background="Transparent" BorderThickness="0" Content="{StaticResource remove}"  CommandParameter="{Binding IngredientType}"
+                                Command="{Binding DataContext.RemoveIngredientCMD, RelativeSource={RelativeSource AncestorType=ListBox}}"/>
                         <TextBlock Text="{Binding Path=IngredientType}" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="15" Foreground="DarkSlateGray"/>
                         <TextBlock Text="{Binding Path=Count, StringFormat={}{0}x}" Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="15" Foreground="DarkSlateGray"/>
                         <TextBlock Text="{Binding Path=Prize, StringFormat={}{0}Kč}" Grid.Column="6" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="15" Foreground="DarkSlateGray"/>
-                        <Button Background="Transparent" BorderThickness="0" Grid.Column="8" Content="{StaticResource add}" CommandParameter="{Binding }"
+                        <Button Background="Transparent" BorderThickness="0" Grid.Column="8" Content="{StaticResource add}" CommandParameter="{Binding IngredientType}"
                                 Command="{Binding DataContext.AddIngredientCMD, RelativeSource={RelativeSource AncestorType=ListBox}}"/>
                     </Grid>
                 </DataTemplate>

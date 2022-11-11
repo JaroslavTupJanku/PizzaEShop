@@ -27,7 +27,7 @@ namespace PizzaEShop.ViewModels
         public async void AddTest()
         {
 
-            var manager = new OrderManager();
+            //var manager = new OrderManager();
 
             var entity = new OrderEntity()
             {
@@ -46,8 +46,8 @@ namespace PizzaEShop.ViewModels
 
         public  void UpdateList()
         {
-            var list = Task.Run(async () => await manager.GetOrders());
-            OrderEntities = new ObservableCollection<OrderEntity>(list.Result);
+            //var list = Task.Run(async () => await manager.GetOrders());
+            //OrderEntities = new ObservableCollection<OrderEntity>(list.Result);
         }
 
     }

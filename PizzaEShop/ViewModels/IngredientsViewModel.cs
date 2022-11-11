@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Input;
-using PizzaEShop.Commands;
+using PizzaEShop.Core;
 using PizzaEShop.Core.Enums;
+using PizzaEShop.Core.Interfaces;
 using PizzaEShop.Models;
 using PizzaEShop.View;
 using System;
@@ -17,42 +18,50 @@ namespace PizzaEShop.ViewModels
 {
     public class IngredientsViewModel
     {
-        private readonly OrdersManager manager;
-        private readonly PizzaBuilder builder;
+        private readonly OrderManager manager;
+        private readonly IPizzaBuilder builder;
 
-        public ObservableCollection<Ingredient> Ingredients { get; private set; } = new ObservableCollection<Ingredient>();
-        public ICommand AddIngredientCMD { get; } = new AddIngredientCommand();
-        public ICommand RemoveIngredientCMD { get; } = new RemoveIngredientCommand();
+        public ObservableCollection<IngredientCounter> Ingredients { get; private set; } = new ObservableCollection<IngredientCounter>();
+        public RelayCommand<IngredientType> AddIngredientCMD { get; }
+        public RelayCommand<IngredientType> RemoveIngredientCMD { get; } 
         public RelayCommand<ICloseable> AddOrderCommand { get; }
         public RelayCommand<ICloseable> AddOrderAndContinueCommand { get; }
 
 
-        public IngredientsViewModel(OrdersManager manager, PizzaBuilder builder)
+        public IngredientsViewModel(OrderManager manager, IPizzaBuilder builder)
         {
-            Ingredients.Add(new Ingredient(IngredientType.Mozzarela, 45));
-            Ingredients.Add(new Ingredient(IngredientType.Hermelín, 35));
-            Ingredients.Add(new Ingredient(IngredientType.Losos, 40));
-            Ingredients.Add(new Ingredient(IngredientType.Vejce, 35));
+            Ingredients.Add(new IngredientCounter(IngredientType.Mozzarela));
+            Ingredients.Add(new IngredientCounter(IngredientType.Hermelín));
+            Ingredients.Add(new IngredientCounter(IngredientType.Losos));
+            Ingredients.Add(new IngredientCounter(IngredientType.Vejce));
+            Ingredients.Add(new IngredientCounter(IngredientType.Gorgonzola));
+            Ingredients.Add(new IngredientCounter(IngredientType.Žížaly));
+            Ingredients.Add(new IngredientCounter(IngredientType.Losos));
+            Ingredients.Add(new IngredientCounter(IngredientType.Salám));
+            Ingredients.Add(new IngredientCounter(IngredientType.Rukola));
 
             this.manager = manager;
             this.builder = builder;
 
+            AddIngredientCMD = new RelayCommand<IngredientType>((type) => AddIngredience(type));
+            RemoveIngredientCMD = new RelayCommand<IngredientType>((type) => RemoveIngredience(type));
             AddOrderCommand = new RelayCommand<ICloseable>(ShowShoppingCart!);
             AddOrderAndContinueCommand = new RelayCommand<ICloseable>(AddOrderToManger!);
         }
-        
+
+        public void AddIngredience(IngredientType type) => Ingredients.Where(x => x.IngredientType == type).FirstOrDefault()!.Add();
+        public void RemoveIngredience(IngredientType type) => Ingredients.Where(x => x.IngredientType == type).FirstOrDefault()!.Remove();
+
         private void AddOrderToManger(ICloseable window)
         {
             window.Close();
-            manager.AddOrder(builder.SetIngrediets(Ingredients.ToArray()).Build());
+            //manager.AddOrder(builder.SetIngrediets(Ingredients.ToArray()).Build());
         }
 
         private void ShowShoppingCart(ICloseable window)
         {
             //var view = new ShoppingCartWindow();
-
             AddOrderToManger(window);
-            //view.ShowDialog();
         }
     }
 }

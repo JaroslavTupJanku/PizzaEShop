@@ -56,7 +56,7 @@
                 <TextBlock Text="{Binding Path=PizzaList[0].Ingrediets, Converter={StaticResource IngredietsStringConverter}}" />
             </StackPanel>
             <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right">
-                <TextBlock Text="{ Binding Path=PizzaList[0].Weight, StringFormat={}{0} cm }" Foreground="Gray" FontSize="15" VerticalAlignment="Center"/>
+                <TextBlock Text="32cm" Foreground="Gray" FontSize="15" VerticalAlignment="Center"/>
                 <TextBlock Text="{ Binding Path=PizzaList[0].Price, StringFormat={}{0} Kč }" Margin="10,0" FontWeight="Bold" FontSize="20"/>
             </StackPanel>
             <Button Grid.Column="2" Grid.Row="2" HorizontalAlignment="Right" Width="80" Background="LawnGreen" BorderThickness="0"
@@ -71,23 +71,6 @@
         </Grid>
 
         <!--2.Pizza-->
-        <Grid Background="White" Margin="10" Grid.Column="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-
-            <TextBlock Text="{Binding Path=PizzaList[1].Type, StringFormat={}2.{0}}" FontSize="20" FontWeight="Bold"/>
-            <StackPanel Orientation="Horizontal" Grid.Column="1">
-                <TextBlock Text="{ Binding Path=PizzaList[1].Weight, StringFormat={}{1} cm }" Grid.Column="1"/>
-                <TextBlock Text="{ Binding Path=PizzaList[1].Price, StringFormat={}{1} Kč }" Grid.Column="1" Margin="10,0"/>
-                <Button/>
-            </StackPanel>
-        </Grid>
 
     </Grid>
 </UserControl>

@@ -8,13 +8,12 @@ using System.Threading.Tasks;
 
 namespace PizzaEShop.Models
 {
-    public class Ingredient : INotifyPropertyChanged
+    public class IngredientCounter : INotifyPropertyChanged
     {
         private readonly IngredientType ingredient;
         private readonly int prize;
         private int count = 0;
 
-        public int Prize => prize;
         public IngredientType IngredientType => ingredient;
         public int Count 
         { 
@@ -26,10 +25,9 @@ namespace PizzaEShop.Models
             } 
         }
 
-        public Ingredient(IngredientType ingredient, int prize)
+        public IngredientCounter(IngredientType ingredient)
         {
             this.ingredient = ingredient;
-            this.prize = prize;
         }
 
         public void Add() => Count++;

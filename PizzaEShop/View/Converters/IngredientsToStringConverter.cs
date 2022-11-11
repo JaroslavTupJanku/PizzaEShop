@@ -1,4 +1,5 @@
-﻿using PizzaEShop.Models;
+﻿using PizzaEShop.Core.Enums;
+using PizzaEShop.Models;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,12 +16,12 @@ namespace PizzaEShop.View.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             var res = string.Empty;
-            if (value is List<Ingredient> Ingrediets)
+            if (value is Dictionary<IngredientType, int > Ingrediets)
             {
-                Ingrediets.ForEach(x => res = res + $"{x} ");
+                Ingrediets.ToList().ForEach(x => res += $"{x.Key}, ");
             }
 
-            return res;
+            return res.Remove(res.Length - 2); ;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
