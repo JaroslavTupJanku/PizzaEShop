@@ -13,6 +13,7 @@
 
     <Window.Resources>
         <conv:MultiValueConverter x:Key="MultiValueConverter"/>
+        <conv:EnumToIntConverter x:Key="EnumToIntConverter"/>
         <System:Boolean x:Key="FalseValue">False</System:Boolean>
         <System:Boolean x:Key="TrueValue">True</System:Boolean>
     </Window.Resources>
@@ -52,7 +53,7 @@
                                 Command="{Binding DataContext.RemoveIngredientCMD, RelativeSource={RelativeSource AncestorType=ListBox}}"/>
                         <TextBlock Text="{Binding Path=IngredientType}" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="15" Foreground="DarkSlateGray"/>
                         <TextBlock Text="{Binding Path=Count, StringFormat={}{0}x}" Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="15" Foreground="DarkSlateGray"/>
-                        <TextBlock Text="{Binding Path=IngredientType, StringFormat={}{0}Kč, Converter={StaticResource }}" Grid.Column="6" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="15" Foreground="DarkSlateGray"/>
+                        <TextBlock Text="{Binding Path=IngredientType, StringFormat={}{0}Kč, Converter={StaticResource EnumToIntConverter }}" Grid.Column="6" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="15" Foreground="DarkSlateGray"/>
                         <Button Background="Transparent" BorderThickness="0" Grid.Column="8" Content="{StaticResource add}" CommandParameter="{Binding IngredientType}"
                                 Command="{Binding DataContext.AddIngredientCMD, RelativeSource={RelativeSource AncestorType=ListBox}}"/>
                     </Grid>

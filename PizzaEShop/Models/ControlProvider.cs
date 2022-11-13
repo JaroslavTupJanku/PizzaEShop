@@ -20,6 +20,7 @@ namespace PizzaEShop.Models
                 ControlType.ShoppingCartControl => new ShoppingCartControl(),
                 ControlType.FavoritOrderControl => new FavoritOrderControl(),
                 ControlType.OrderHistoryContoro => new OrderHistoryControl(),
+                ControlType.AddresControl => new AddressControl(),
                 _ => throw new Exception("UserControl has not been found.")
             };
 

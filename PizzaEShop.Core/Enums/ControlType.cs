@@ -9,6 +9,7 @@ namespace PizzaEShop.Core.Enums
     public enum ControlType
     {
         PizzaMenuControl,
+        AddresControl,
         ShoppingCartControl,
         FavoritOrderControl,
         OrderHistoryContoro,

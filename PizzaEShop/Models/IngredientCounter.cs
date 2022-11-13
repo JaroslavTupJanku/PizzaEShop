@@ -14,14 +14,14 @@ namespace PizzaEShop.Models
         private int count = 0;
 
         public IngredientType IngredientType => ingredient;
-        public int Count 
-        { 
-            get => count; 
+        public int Count
+        {
+            get => count;
             private set
             {
                 count = value;
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Count)));
-            } 
+            }
         }
 
         public IngredientCounter(IngredientType ingredient)
@@ -30,8 +30,12 @@ namespace PizzaEShop.Models
         }
 
         public void Add() => Count++;
-        public void Remove() => Count--;
         public void Clear() => Count = 0;
+
+        public void Remove()
+        {
+            if (Count != 0) { Count--; }
+        }
 
         public event PropertyChangedEventHandler? PropertyChanged;
     }
