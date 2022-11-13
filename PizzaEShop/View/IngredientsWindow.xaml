@@ -7,8 +7,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PizzaEShop.View"
-        mc:Ignorable="d" d:DataContext="{d:DesignInstance Type=vm:IngredientsViewModel}"
-        Title="IngredientsWindow" Height="620" Width="598" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="Window" ResizeMode="NoResize">
+        mc:Ignorable="d" d:DataContext="{d:DesignInstance Type=vm:IngredientsViewModel}" WindowStartupLocation="CenterScreen"
+        Title="IngredientsWindow" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="Window" ResizeMode="NoResize"
+        Width="615">
 
     <Window.Resources>
         <conv:MultiValueConverter x:Key="MultiValueConverter"/>
@@ -18,11 +19,17 @@
 
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="55"/>
         </Grid.RowDefinitions>
 
-        <ListBox ItemsSource="{Binding Path=Ingredients}" BorderThickness="0">
+        <TextBlock Margin="10,0,0,0" Text="Vylepšete si: " HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="20" Foreground="Gray" 
+                   FontWeight="Bold" FontFamily="Comic Sans MS" FontStyle="Italic"/>
+
+
+        <!--ListBox-->
+        <ListBox Grid.Row="1" ItemsSource="{Binding Path=Ingredients}" BorderThickness="0">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -39,12 +46,13 @@
                             <ColumnDefinition Width="60"/>
                             <ColumnDefinition Width="80"/>
                             <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Button Background="Transparent" BorderThickness="0" Content="{StaticResource remove}"  CommandParameter="{Binding IngredientType}"
                                 Command="{Binding DataContext.RemoveIngredientCMD, RelativeSource={RelativeSource AncestorType=ListBox}}"/>
                         <TextBlock Text="{Binding Path=IngredientType}" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="15" Foreground="DarkSlateGray"/>
                         <TextBlock Text="{Binding Path=Count, StringFormat={}{0}x}" Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="15" Foreground="DarkSlateGray"/>
-                        <TextBlock Text="{Binding Path=Prize, StringFormat={}{0}Kč}" Grid.Column="6" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="15" Foreground="DarkSlateGray"/>
+                        <TextBlock Text="{Binding Path=IngredientType, StringFormat={}{0}Kč, Converter={StaticResource }}" Grid.Column="6" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="15" Foreground="DarkSlateGray"/>
                         <Button Background="Transparent" BorderThickness="0" Grid.Column="8" Content="{StaticResource add}" CommandParameter="{Binding IngredientType}"
                                 Command="{Binding DataContext.AddIngredientCMD, RelativeSource={RelativeSource AncestorType=ListBox}}"/>
                     </Grid>
@@ -53,16 +61,16 @@
         </ListBox>
 
         <!--Tlacitka-->
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
             <Button Background="Transparent" FontSize="15" FontWeight="Bold" Content="Do košíku a nakupovat dále"
                     Command="{Binding Path=AddOrderAndContinueCommand}" CommandParameter="{Binding ElementName=Window}">
             </Button>
-            <Button Grid.Column="1" Background="LightGreen" Content="Do košíku" FontSize="15" FontWeight="Bold" Foreground="White" 
+            <Button Grid.Column="1" Background="LawnGreen" Content="Do košíku" FontSize="15" FontWeight="Bold" Foreground="White" 
                  Command="{Binding Path=AddOrderCommand}" CommandParameter="{Binding ElementName=Window}">
             </Button>
         </Grid>

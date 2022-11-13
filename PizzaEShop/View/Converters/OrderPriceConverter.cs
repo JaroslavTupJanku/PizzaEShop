@@ -1,7 +1,6 @@
 ﻿using PizzaEShop.Core.Enums;
-using PizzaEShop.Models;
+using PizzaEShop.Core.Model;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -11,17 +10,21 @@ using System.Windows.Data;
 
 namespace PizzaEShop.View.Converters
 {
-    public class IngredientsToStringConverter : IValueConverter
+    public class OrderPriceConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var res = string.Empty;
-            if (value is Dictionary<IngredientType, int > Ingrediets)
+            var price = 0;
+            if (value is ICollection<PizzaDTO> pizzas)
             {
-                Ingrediets.ToList().ForEach(x => res += $"{x.Key}, ");
+                foreach(var pizza in pizzas)
+                {
+                    price = pizza.Price;
+                    pizza.Ingrediets.ToList().ForEach(x => price += (int)x.Key * x.Value);
+                }
             }
 
-            return res.Remove(res.Length - 2); 
+            return $"{price} Kč";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

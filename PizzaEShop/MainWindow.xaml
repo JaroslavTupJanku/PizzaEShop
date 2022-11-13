@@ -17,11 +17,15 @@
         </Style>
     </Window.Resources>
     
+
+    
     <Grid>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="200"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="80"/>
@@ -29,10 +33,10 @@
         </Grid.RowDefinitions>
 
         <!--MenuGrid-->
-        <Grid Grid.ColumnSpan="3" Background="White">
+        <Grid Grid.ColumnSpan="5"  Background="White">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="90"/>
+                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="50"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="80"/>
@@ -59,85 +63,13 @@
             <Button  Grid.Column="8" Command="{Binding Path=GoToShoppingCartCMD}" Background="Transparent" BorderThickness="0" Height="80" Width="80">
                 <materialIcons:MaterialIcon Kind="AddShoppingCart" Height="40" Width="40" />
             </Button>
-            <Button  Grid.Column="10" Command="{Binding Path=GoToShoppingCartCMD}" Background="Transparent" BorderThickness="0" Height="80" Width="80">
+            <Button  Grid.Column="10" Command="{Binding Path=GoToMainPageCMD}" Background="Transparent" BorderThickness="0" Height="80" Width="80">
                 <materialIcons:MaterialIcon Kind="Menu" Height="40" Width="40" />
             </Button>
         </Grid>
         
-        <ContentControl Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Content="{Binding Control}" />
+        <ContentControl Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Content="{Binding Control}" />
         
-        <!--Pizza Grid--><!--
-        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="150"/>
-                <RowDefinition Height="10"/>
-                <RowDefinition Height="150"/>
-                <RowDefinition Height="10"/>
-                <RowDefinition Height="150"/>
-                <RowDefinition Height="10"/>
-                <RowDefinition Height="150"/>
-                <RowDefinition Height="10"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200" />
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="200" />
-            </Grid.ColumnDefinitions>
-
-            --><!--1.Pizza--><!--
-            <Grid Background="White" Margin="10" Grid.Column="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="10"/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition Width="10"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="10" />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition Height="10" />
-                </Grid.RowDefinitions>
-                <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="1">
-                    <TextBlock Text="{Binding Path=PizzaList[0].Type, StringFormat={}1.{0}}" FontSize="20" FontWeight="Bold"/>
-                    <TextBlock Text="{Binding Path=PizzaList[0].Ingrediets, Converter={StaticResource IngredietsStringConverter}}" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right">
-                    <TextBlock Text="{ Binding Path=PizzaList[0].Weight, StringFormat={}{0} cm }" Foreground="Gray" FontSize="15" VerticalAlignment="Center"/>
-                    <TextBlock Text="{ Binding Path=PizzaList[0].Price, StringFormat={}{0} Kč }" Margin="10,0" FontWeight="Bold" FontSize="20"/>
-                </StackPanel>
-                <Button Grid.Column="2" Grid.Row="2" HorizontalAlignment="Right" Width="80" Background="LawnGreen" BorderThickness="0"
-                    Command="{Binding DataContext.Command, RelativeSource={RelativeSource AncestorType={x:Type Window}}}" CommandParameter="{Binding Path=PizzaList[0].Type}">
-                    <xamlIconLibrary:GoogleMaterialIcon Icon="AddShoppingCart" Height="40" Width="40"/>
-                    <Button.Resources>
-                        <Style TargetType="{x:Type Border}">
-                            <Setter Property="CornerRadius" Value="20"/>
-                        </Style>
-                    </Button.Resources>
-                </Button>
-            </Grid>
-
-            --><!--2.Pizza--><!--
-            <Grid Background="White" Margin="10" Grid.Column="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-
-                <TextBlock Text="{Binding Path=PizzaList[1].Type, StringFormat={}2.{0}}" FontSize="20" FontWeight="Bold"/>
-                <StackPanel Orientation="Horizontal" Grid.Column="1">
-                    <TextBlock Text="{ Binding Path=PizzaList[1].Weight, StringFormat={}{1} cm }" Grid.Column="1"/>
-                    <TextBlock Text="{ Binding Path=PizzaList[1].Price, StringFormat={}{1} Kč }" Grid.Column="1" Margin="10,0"/>
-                    <Button/>
-                </StackPanel>
-            </Grid>--><!--
-
-        </Grid>-->
     </Grid>
 </Window>
 

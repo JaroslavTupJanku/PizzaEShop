@@ -12,7 +12,7 @@ namespace PizzaEShop.Core.Interfaces
         PizzaType Type { get; }
 
         PizzaDTO Build();
-        IPizzaBuilder SetCost(int price);
+        IPizzaBuilder SetPrice(int price);
         IPizzaBuilder SetIngrediets(IngredientType key, int value);
         IPizzaBuilder SetPizzaType(PizzaType pizza);
     }

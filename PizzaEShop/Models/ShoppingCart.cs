@@ -10,16 +10,16 @@ namespace PizzaEShop.Models
 {
     public class ShoppingCart
     {
-        private readonly IList<PizzaDTO> pizzas = new List<PizzaDTO>();
+        public IList<PizzaDTO> Pizzas { get; } = new List<PizzaDTO>();
 
         public void Add(PizzaDTO pizza)
         {
-            this.pizzas.Add(pizza);
+            this.Pizzas.Add(pizza);
         }
 
         public void Remove(PizzaDTO pizza)
         {
-            this.pizzas.Remove(pizza);
+            this.Pizzas.Remove(pizza);
         }
 
     }

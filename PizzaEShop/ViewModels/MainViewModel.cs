@@ -19,6 +19,8 @@ namespace PizzaEShop.ViewModels
         public UserControl userControl = new PizzaMenuControl();
         public RelayCommand GoToShoppingCartCMD { get; }
         public RelayCommand GoToMainPageCMD { get; }
+        public RelayCommand GoToOrderHistoryCMD { get; }
+        public RelayCommand GoToFavoritOrderCMD { get; }
 
         public UserControl? Control
         {
@@ -36,10 +38,14 @@ namespace PizzaEShop.ViewModels
 
             GoToMainPageCMD = new RelayCommand(GetMainPage!);
             GoToShoppingCartCMD = new RelayCommand(GetShoppingCart!);
+            GoToOrderHistoryCMD = new RelayCommand(GetOrderHistory!);
+            GoToFavoritOrderCMD = new RelayCommand(GetFavoritOrders!);
         }
 
         private void GetMainPage() => Control = new PizzaMenuControl();
         private void GetShoppingCart() => Control = new ShoppingCartControl();
+        private void GetOrderHistory() => Control = new OrderHistoryControl();
+        private void GetFavoritOrders() => Control = new FavoritOrderControl();
 
         public event PropertyChangedEventHandler? PropertyChanged;
 

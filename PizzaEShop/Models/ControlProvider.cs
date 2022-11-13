@@ -12,22 +12,19 @@ namespace PizzaEShop.Models
 {
     public class ControlProvider
     {
-        private UserControl[] userControls = new UserControl[]
-        {
-            new FavoritOrderControl(),
-            new OrderHistoryControl(),
-            new PizzaMenuControl(),
-            new ShoppingCartControl(),
-        };
-
         public void SetPizzaControl(ControlType type)
         {
-            var control = userControls.Where(x => (ControlType)x.Tag == type).FirstOrDefault()
-                ?? throw new Exception("UserControl has not been found.");
+            UserControl control = type switch 
+            {
+                ControlType.PizzaMenuControl => new PizzaMenuControl(),
+                ControlType.ShoppingCartControl => new ShoppingCartControl(),
+                ControlType.FavoritOrderControl => new FavoritOrderControl(),
+                ControlType.OrderHistoryContoro => new OrderHistoryControl(),
+                _ => throw new Exception("UserControl has not been found.")
+            };
 
             OnUserControlChanged?.Invoke(this, control);
         }
-
 
         public event EventHandler<UserControl>? OnUserControlChanged;
     }

@@ -1,54 +1,41 @@
-﻿using PizzaEShop.Core;
+﻿using CommunityToolkit.Mvvm.Input;
+using PizzaEShop.Core;
 using PizzaEShop.Core.Enums;
 using PizzaEShop.Core.Interfaces;
+using PizzaEShop.Core.Model;
 using PizzaEShop.Data.Entity;
+using PizzaEShop.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace PizzaEShop.ViewModels
 {
     public class ShoppingCartViewModel : IControlViewModel
     {
-        private readonly OrderManager manager;
+        private readonly ShoppingCart cart = null!;
 
-        public ObservableCollection<OrderEntity> OrderEntities { get; private set; } = null!;
+        public bool Enabled { get; }  = false;
+
+        public ObservableCollection<PizzaDTO> Pizzas { get; private set; } = null!;
         public ControlType ControlType { get; } = ControlType.ShoppingCartControl;
+        public ICommand RemovePizzaCMD { get; } 
 
-        public ShoppingCartViewModel(OrderManager manager)
+        public ShoppingCartViewModel(ShoppingCart cart)
         {
-            this.manager = manager;
-            //AddTest();
-            UpdateList();
+            this.cart = cart;
+            RemovePizzaCMD = new RelayCommand<PizzaDTO>((pizza) => RemovePizza(pizza!));
+            Pizzas = new ObservableCollection<PizzaDTO>(cart.Pizzas);
         }
 
-        public async void AddTest()
+        public void RemovePizza(PizzaDTO pizza)
         {
-
-            //var manager = new OrderManager();
-
-            var entity = new OrderEntity()
-            {
-                Address = "BAddress",
-                Time = DateTime.Now,
-                Pizzas = new List<PizzaEntity>()
-                {
-                    new PizzaEntity()
-                    {
-                        Gorgonzola = 2
-                    }
-                }
-            };
-            //await Task.Run(() => manager.PostOrder(entity));
-        }
-
-        public  void UpdateList()
-        {
-            //var list = Task.Run(async () => await manager.GetOrders());
-            //OrderEntities = new ObservableCollection<OrderEntity>(list.Result);
+            cart.Remove(pizza);
+            Pizzas.Remove(pizza);
         }
 
     }

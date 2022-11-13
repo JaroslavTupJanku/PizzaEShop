@@ -31,7 +31,7 @@ namespace PizzaEShop.Models
             return this;
         }
 
-        public IPizzaBuilder SetCost(int price)
+        public IPizzaBuilder SetPrice(int price)
         {
             this.PizzaPrice = price;
             return this;
