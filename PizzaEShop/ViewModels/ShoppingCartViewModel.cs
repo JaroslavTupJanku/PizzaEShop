@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using Microsoft.EntityFrameworkCore.Update.Internal;
 using PizzaEShop.Core;
 using PizzaEShop.Core.Enums;
@@ -18,7 +19,7 @@ using System.Windows.Input;
 
 namespace PizzaEShop.ViewModels
 {
-    public class ShoppingCartViewModel : IControlViewModel, INotifyPropertyChanged
+    public class ShoppingCartViewModel : ObservableObject, IControlViewModel
     {
         private readonly ShoppingCart cart = null!;
         private readonly ControlProvider provider;
@@ -34,11 +35,7 @@ namespace PizzaEShop.ViewModels
         public int TotalPrice
         {
             get => totalPrice;
-            private set
-            {
-                totalPrice = value;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(TotalPrice)));
-            }
+            private set => SetProperty(ref totalPrice, value);
         }
 
         public ShoppingCartViewModel(ShoppingCart cart, ControlProvider provider)
@@ -64,7 +61,6 @@ namespace PizzaEShop.ViewModels
         public void GotoAddressControl() => provider.SetPizzaControl(ControlType.AddresControl);
         public void GoToPizzaMenuControl() => provider.SetPizzaControl(ControlType.PizzaMenuControl);
 
-        public event PropertyChangedEventHandler? PropertyChanged;
 
     }
 }

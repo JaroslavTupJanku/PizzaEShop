@@ -16,11 +16,6 @@ namespace PizzaEShop.Data.Repository
     {
         private readonly SqlEFDataContext dbContext = new();
 
-        public OrderRepository()
-        {
-
-        }
-
         public async Task PostOrder(OrderDTO order)
         {
             var entity = new OrderEntity()
@@ -46,15 +41,11 @@ namespace PizzaEShop.Data.Repository
             entities.ForEach(async x => x.Pizzas = await dbContext.Pizzas
                   .Where(y => y.Order.Id == x.Id).ToListAsync());
 
-
-            throw new NotImplementedException();
-            //return entities.Select(x => new OrderDTO
-            //{
-            //    Address = x.Address,
-            //    Time = x.Time,
-            //    Pizzas = x.Pizzas!.Select(x => Convert(x)).ToArray()   //ConvertToModel(x.Pizzas!)
-            //})
-            //.ToArray();
+            return entities.Select(x => new OrderDTO
+            (
+                x.Time, x.Address, x.City, x.PSC, x.Price,
+                x.Pizzas!.Select(x => Convert(x)).ToArray()
+            )).ToArray();
         }
 
         public PizzaEntity ConvertBack (PizzaDTO pizza)
@@ -64,15 +55,15 @@ namespace PizzaEShop.Data.Repository
             {
                 PizzaCost = pizza.Price,
                 PizzaType = pizza.Type,
-                Gorgonzola = dict[IngredientType.Gorgonzola],
-                Mozzarela = dict[IngredientType.Mozzarela],
-                Rukola = dict[IngredientType.Rukola],
-                Hermelin = dict[IngredientType.Hermelín],
-                Kukurice = dict[IngredientType.Kukřice],
-                Losos = dict[IngredientType.Losos],
-                Vejce = dict[IngredientType.Vejce],
-                Zizaly = dict[IngredientType.Žížaly],
-                Salam = dict[IngredientType.Salám],
+                Gorgonzola = dict is null || !dict.ContainsKey(IngredientType.Gorgonzola) ? 0 : dict[IngredientType.Gorgonzola],
+                Mozzarela = dict is null || !dict.ContainsKey(IngredientType.Mozzarela) ? 0 : dict[IngredientType.Mozzarela],
+                Rukola = dict is null || !dict.ContainsKey(IngredientType.Rukola) ? 0 : dict[IngredientType.Rukola],
+                Hermelin = dict is null || !dict.ContainsKey(IngredientType.Hermelín) ? 0 : dict[IngredientType.Hermelín],
+                Kukurice = dict is null || !dict.ContainsKey(IngredientType.Kukřice) ? 0 : dict[IngredientType.Kukřice],
+                Losos = dict is null || !dict.ContainsKey(IngredientType.Losos) ? 0 : dict[IngredientType.Losos],
+                Vejce = dict is null || !dict.ContainsKey(IngredientType.Vejce) ? 0 : dict[IngredientType.Vejce],
+                Zizaly = dict is null || !dict.ContainsKey(IngredientType.Žížaly) ? 0 : dict[IngredientType.Žížaly],
+                Salam = dict is null || !dict.ContainsKey(IngredientType.Salám) ? 0 : dict[IngredientType.Salám],
             };
         }
 

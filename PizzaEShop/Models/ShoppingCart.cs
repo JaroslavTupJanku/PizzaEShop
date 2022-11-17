@@ -13,7 +13,7 @@ namespace PizzaEShop.Models
     public class ShoppingCart
     {
         public IList<PizzaDTO> Pizzas { get; } = new List<PizzaDTO>();
-        public int TotalPrice = 0;
+        public int TotalPrice { get; private set; } = 0 ;
 
         public void Add(PizzaDTO pizza)
         {

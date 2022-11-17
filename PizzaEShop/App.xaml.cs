@@ -31,6 +31,7 @@ namespace PizzaEShop
                     services.AddSingleton<ShoppingCart>();
                     services.AddSingleton<IPizzaBuilder, PizzaBuilder>();
                     services.AddSingleton<MainViewModel>();
+                    services.AddSingleton<OrderViewModel>();
 
                     services.AddTransient<IControlViewModel, FavoritOrderViewModel>();
                     services.AddTransient<IControlViewModel, OrderHistoryViewModel>();

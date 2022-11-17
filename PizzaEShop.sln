@@ -5,9 +5,9 @@ VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PizzaEShop", "PizzaEShop\PizzaEShop.csproj", "{7F114ABF-5875-4D8D-B008-E8C4E36A228E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaEShop.Data", "PizzaEShop.Data\PizzaEShop.Data.csproj", "{D3A0D148-BCB6-46AD-93DE-301E6901A087}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PizzaEShop.Data", "PizzaEShop.Data\PizzaEShop.Data.csproj", "{D3A0D148-BCB6-46AD-93DE-301E6901A087}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PizzaEShop.Core", "PizzaEShop.Core\PizzaEShop.Core.csproj", "{B9C15846-A886-4B2E-9A9E-EC2073A87758}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PizzaEShop.Core", "PizzaEShop.Core\PizzaEShop.Core.csproj", "{B9C15846-A886-4B2E-9A9E-EC2073A87758}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

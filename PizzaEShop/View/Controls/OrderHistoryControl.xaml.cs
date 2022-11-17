@@ -26,7 +26,7 @@ namespace PizzaEShop.View.Controls
         public OrderHistoryControl()
         {
             DataContext = App.AppHost!.Services.GetServices<IControlViewModel>()
-                          .FirstOrDefault(x => x.ControlType == ControlType.OrderHistoryContoro);
+                             .FirstOrDefault(x => x.ControlType == ControlType.OrderHistoryContoro);
             InitializeComponent();
         }
     }

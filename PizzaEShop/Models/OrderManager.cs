@@ -16,8 +16,6 @@ namespace PizzaEShop.Core
 {
     public class OrderManager
     {
-        private OrderDTO order;  
-        private readonly IPizzaBuilder builder;
         private readonly OrderRepository repository;
 
         public OrderManager()
@@ -25,18 +23,14 @@ namespace PizzaEShop.Core
             this.repository = new OrderRepository();
         }
 
-        public void InsertOrder(PizzaDTO pizza)
+        public async Task InsertOrder(OrderDTO order)
         {
-
-            order.Pizzas.Add(pizza);
+            await repository.PostOrder(order);
         }
 
-        public void GetAllOrders(PizzaDTO pizza)
+        public async Task<OrderDTO[]> GetAllOrders()
         {
-            if (!order.Pizzas.Contains(pizza))
-            {
-                order.Pizzas.Remove(pizza);
-            }
+            return await repository.GetOrders();
         }
 
     }
