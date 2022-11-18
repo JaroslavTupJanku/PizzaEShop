@@ -32,7 +32,7 @@
         </Grid.ColumnDefinitions>
 
         <TextBlock Grid.ColumnSpan="2" Margin="0" Text="Oblíbené Objednávky: " VerticalAlignment="Bottom" FontSize="20" Foreground="Gray" FontWeight="Bold" FontFamily="Comic Sans MS" FontStyle="Italic"/>
-        <ItemsControl ItemsSource="{Binding Path=Orders}" Margin="0,5,0,0" Grid.Column="1" BorderThickness="0" Background="Transparent" Grid.Row="1" >
+        <ItemsControl ItemsSource="{Binding Path=FavoritOrders}" Margin="0,5,0,0" Grid.Column="1" BorderThickness="0" Background="Transparent" Grid.Row="1" >
             <ItemsControl.ItemTemplate >
                 <DataTemplate>
                     <Border BorderBrush="Gray" BorderThickness="1" Margin="0,0,0,10">
