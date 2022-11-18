@@ -1,54 +1,47 @@
-﻿using PizzaEShop.Core;
+﻿using CommunityToolkit.Mvvm.Input;
+using PizzaEShop.Core;
 using PizzaEShop.Core.Enums;
 using PizzaEShop.Core.Interfaces;
+using PizzaEShop.Core.Model;
 using PizzaEShop.Data.Entity;
+using PizzaEShop.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace PizzaEShop.ViewModels
 {
     public class OrderHistoryViewModel : IControlViewModel
     {
         private readonly OrderManager manager;
+        private readonly ShoppingCart cart;
 
-        public ObservableCollection<OrderEntity> OrderEntities { get; private set; } = null!;
+
+        public ICommand AddToFavoritOrderdCMD { get; set; }
+        public ObservableCollection<OrderDTO> Orders { get; private set; } = null!;
         public ControlType ControlType => ControlType.OrderHistoryContoro;
 
-        public OrderHistoryViewModel(OrderManager manager)
+        public OrderHistoryViewModel(OrderManager manager, ShoppingCart cart)
         {
+            AddToFavoritOrderdCMD = new RelayCommand<OrderDTO>(async (dto) => await AddToFavoritOrder(dto!));
+
+
             this.manager = manager;
-            //AddTest();
+            this.cart = cart;
             UpdateList();
         }
 
-        public async void AddTest()
-        {
-
-            //var manager = new OrderManager();
-
-            var entity = new OrderEntity()
-            {
-                Address = "BAddress",
-                Time = DateTime.Now,
-                Pizzas = new List<PizzaEntity>()
-                {
-                    new PizzaEntity()
-                    {
-                        Gorgonzola = 2
-                    }
-                }
-            };
-            //await Task.Run(() => manager.PostOrder(entity));
-        }
+        public async Task AddToFavoritOrder(OrderDTO order) => await manager.SetFavoritOrderd(order);
 
         public void UpdateList()
         {
-            //var list = Task.Run(async () => await manager.GetOrders());
-            //OrderEntities = new ObservableCollection<OrderEntity>(list.Result);
+            var list = Task.Run(async () => await manager.GetAllOrders());
+
+            Orders = new ObservableCollection<OrderDTO>(list.Result);
         }
     }
 }

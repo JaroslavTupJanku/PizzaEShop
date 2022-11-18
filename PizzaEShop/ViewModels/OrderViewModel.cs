@@ -22,10 +22,10 @@ namespace PizzaEShop.ViewModels
         private readonly ShoppingCart cart;
         private readonly ControlProvider provider;
         private readonly OrderManager manager;
+
         private bool isTransportByCar;
         private int orderPrize;
         private int transportCost;
-
         public ICommand GoBackCommand { get; set; }
         public CreateOrderCommand CreateOrderCommand { get; set; }
 
@@ -75,8 +75,8 @@ namespace PizzaEShop.ViewModels
             if (MessageBox.Show("Objednávka byla přijata") == MessageBoxResult.OK)
             {
                 provider.SetPizzaControl(ControlType.PizzaMenuControl);
+                cart.Reset();
             }
-            
         }
     }
 

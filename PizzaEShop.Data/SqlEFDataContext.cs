@@ -14,6 +14,7 @@ namespace PizzaEShop.Data
     {
         public DbSet<OrderEntity> Orders { get; set; }
         public DbSet<PizzaEntity> Pizzas { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var folder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);

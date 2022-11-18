@@ -14,41 +14,55 @@ namespace PizzaEShop.Data.Repository
 {
     public class OrderRepository
     {
-        private readonly SqlEFDataContext dbContext = new();
-
         public async Task PostOrder(OrderDTO order)
         {
             var entity = new OrderEntity()
             {
                 Address = order.Address,
                 Time = order.Time,
+                Price = order.Price,
                 Pizzas = order.Pizzas.Select(x => ConvertBack(x)).ToList()
             };
 
-            _ = await dbContext.Database.EnsureCreatedAsync()
-                ? await dbContext.AddAsync(entity)
-                : throw new Exception("A database is not Created.");
-
+            using var dbContext = new SqlEFDataContext();
+            bool vytvorena = await dbContext.Database.EnsureCreatedAsync();
+            await dbContext.AddAsync(entity);
             dbContext.SaveChanges();
+
         }
 
         public async Task<OrderDTO[]> GetOrders()
         {
-            var entities = await dbContext.Database.EnsureDeletedAsync()
-                ? await dbContext.Orders.ToListAsync()
-                : throw new Exception("A database is not Created.");
-
+            using var dbContext = new SqlEFDataContext();
+            bool vytovrena = await dbContext.Database.EnsureCreatedAsync();
+            var entities = await dbContext.Orders.ToListAsync();
             entities.ForEach(async x => x.Pizzas = await dbContext.Pizzas
                   .Where(y => y.Order.Id == x.Id).ToListAsync());
 
             return entities.Select(x => new OrderDTO
             (
                 x.Time, x.Address, x.City, x.PSC, x.Price,
-                x.Pizzas!.Select(x => Convert(x)).ToArray()
+                x.Pizzas!.Select(x => Convert(x)).ToArray(),
+                x.IsFavorit, x.Id
             )).ToArray();
         }
 
-        public PizzaEntity ConvertBack (PizzaDTO pizza)
+        public async Task SetFavoritOrder(OrderDTO order)
+        {
+            using var dbContext = new SqlEFDataContext();
+            bool vytvorena = await dbContext.Database.EnsureCreatedAsync();
+
+            if ((await dbContext.Orders.ToListAsync()).Where(x => 
+                x.Id == order.Id).FirstOrDefault() is OrderEntity entity && entity.IsFavorit == false)
+            {
+                entity.IsFavorit = true;
+                dbContext.Update(entity);
+                dbContext.SaveChanges();
+            }
+           
+        }
+
+        private PizzaEntity ConvertBack (PizzaDTO pizza)
         {
             var dict = pizza.Ingrediets;
             return new PizzaEntity()
@@ -67,7 +81,7 @@ namespace PizzaEShop.Data.Repository
             };
         }
 
-        public PizzaDTO Convert(PizzaEntity entity)
+        private PizzaDTO Convert(PizzaEntity entity)
         {         
             return new PizzaDTO(entity.PizzaType, entity.PizzaCost, new Dictionary<IngredientType, int>() 
             {
@@ -83,19 +97,5 @@ namespace PizzaEShop.Data.Repository
 
             });
         }
-
-        //builder.SetPizzaType(entity.PizzaType);
-        //builder.SetCost(entity.PizzaCost);
-        //builder.SetIngrediets(IngredientType.Mozzarela, entity.Mozzarela);
-        //builder.SetIngrediets(IngredientType.Gorgonzola, entity.Gorgonzola);
-        //builder.SetIngrediets(IngredientType.Hermelín, entity.Hermelin);
-        //builder.SetIngrediets(IngredientType.Vejce, entity.Vejce);
-        //builder.SetIngrediets(IngredientType.Rukola, entity.Rukola);
-        //builder.SetIngrediets(IngredientType.Kukřice, entity.Kukurice);
-        //builder.SetIngrediets(IngredientType.Žížaly, entity.Zizaly);
-        //builder.SetIngrediets(IngredientType.Salám, entity.Salam);
-        //builder.SetIngrediets(IngredientType.Losos, entity.Losos);
-        //return builder.Build();
-
     }
 }

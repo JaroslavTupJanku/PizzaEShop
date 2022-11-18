@@ -39,7 +39,7 @@
             <TextBlock Name="priceTB" Text="{ Binding Path=PizzaPrice}" Margin="10,0" FontWeight="Bold" FontSize="20"/>
         </StackPanel>
         
-        <Button Name="MyButton" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Right" Width="80" Background="LawnGreen" BorderThickness="0"
+        <Button Name="MyButton" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Right" Width="80" Background="LawnGreen" BorderThickness="1"
                Command="{Binding MyCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorLevel=1, AncestorType=UserControl} }" CommandParameter="{Binding ElementName=typeTB, Path=Text}">
             <materialIcons:MaterialIcon Kind="AddShoppingCart" />
             <Button.Resources>

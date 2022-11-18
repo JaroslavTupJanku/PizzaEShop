@@ -18,9 +18,9 @@ namespace PizzaEShop.Core
     {
         private readonly OrderRepository repository;
 
-        public OrderManager()
+        public OrderManager(OrderRepository repository)
         {
-            this.repository = new OrderRepository();
+            this.repository = repository;
         }
 
         public async Task InsertOrder(OrderDTO order)
@@ -31,6 +31,11 @@ namespace PizzaEShop.Core
         public async Task<OrderDTO[]> GetAllOrders()
         {
             return await repository.GetOrders();
+        }
+
+        public async Task SetFavoritOrderd(OrderDTO order)
+        {
+            await repository.SetFavoritOrder(order);
         }
 
     }

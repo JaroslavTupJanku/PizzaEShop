@@ -12,7 +12,7 @@ namespace PizzaEShop.Models
 {
     public class ShoppingCart
     {
-        public IList<PizzaDTO> Pizzas { get; } = new List<PizzaDTO>();
+        public IList<PizzaDTO> Pizzas { get; private set; } = new List<PizzaDTO>();
         public int TotalPrice { get; private set; } = 0 ;
 
         public void Add(PizzaDTO pizza)
@@ -30,6 +30,12 @@ namespace PizzaEShop.Models
         public void UpdatePrice(int price)
         {
             TotalPrice += price;
+        }
+
+        public void Reset()
+        {
+            this.Pizzas.Clear();
+            TotalPrice = 0;
         }
 
         private int CountIngrediencePrice(Dictionary<IngredientType, int> ingredients)

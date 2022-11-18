@@ -1,4 +1,5 @@
 ﻿using PizzaEShop.Core.Enums;
+using PizzaEShop.Core.Model;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -9,18 +10,14 @@ using System.Windows.Data;
 
 namespace PizzaEShop.View.Converters
 {
-    public class ExtraIngredinceToStringConverter : IValueConverter
+    public class FullAddressConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var res = string.Empty;
-            if (value is Dictionary<IngredientType, int> Ingrediets)
-            {
-                Ingrediets.ToList().Where(x => x.Value != 0)
-                          .ToList().ForEach(x => res += $"+ {x.Value}x {x.Key}, ");
-            }
-
-            return res != string.Empty ? res.Remove(res.Length - 2) : res;
+            var item = (OrderDTO)value;
+            return item.Address == string.Empty || item.Address == string.Empty || item.Address == string.Empty
+                ? "Do vlastních rukou"
+                : $"{item.Address} {item.City}, {item.PSC}";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

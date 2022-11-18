@@ -2,12 +2,51 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:PizzaEShop"
+             xmlns:conv="clr-namespace:PizzaEShop.View.Converters"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
+            
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="View/AppIcons.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <conv:ExtraIngredinceToStringConverter x:Name="converter" x:Key="converter"/>
+            <DataTemplate x:Key="PizzaControlTemplate">
+                <Grid x:Name="Grid" Margin="30,0,30,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="{Binding Path=Type}" Margin="1,0,0,0"/>
+                    <TextBlock Text="{Binding Path=Price,  StringFormat={}{0}Kč}" Margin="0,0,1,0" Grid.Column="1" HorizontalAlignment="Right"/>
+                    <TextBlock Grid.Row="1" Margin="5,0,0,0" Grid.ColumnSpan="2" Text="{Binding Path=Ingrediets, Converter={StaticResource converter }}" Foreground="Green">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Style.Triggers>
+                                    <Trigger Property="Text" Value="">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </Grid>
+                <DataTemplate.Triggers>
+                    <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                        <Setter Property="Background" Value="White" TargetName="Grid"/>
+                    </Trigger>
+                    <Trigger Property="ItemsControl.AlternationIndex" Value="1">
+                        <Setter Property="Background" Value="lightgray" TargetName="Grid"/>
+                    </Trigger>
+                </DataTemplate.Triggers>
+            </DataTemplate>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>
