@@ -13,8 +13,17 @@
     <UserControl.Resources>
         <conv:ExtraIngredinceToStringConverter x:Name="converter" x:Key="converter"/>
         <conv:FullAddressConverter x:Key="addressConverter"/>
+        <conv:InverseBoolConverter x:Key="inverseBoolConverter"/>
         <Style TargetType="{x:Type Border}" x:Key="BorderStyle">
             <Setter Property="CornerRadius" Value="20"/>
+        </Style>
+        <Style TargetType="materialIcons:MaterialIcon" x:Key="iconStyle">
+            <Setter Property="Foreground" Value="Black"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=IsFavorit}" Value="True">
+                    <Setter Property="Foreground" Value="Red"/>
+                </DataTrigger>
+            </Style.Triggers>
         </Style>
     </UserControl.Resources>
     
@@ -65,8 +74,8 @@
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Right">
-                                <Button HorizontalAlignment="Right" Width="60" Background="White" BorderThickness="1" Command="{Binding DataContext.AddToFavoritOrderdCMD, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" CommandParameter="{Binding .}" Margin="10" Padding="5" ToolTip="Přidat do oblíbených">
-                                    <materialIcons:MaterialIcon Kind="FavoriteBorder" Height="40" Width="40"/>
+                                <Button HorizontalAlignment="Right" Width="60" Background="White" BorderThickness="1" Command="{Binding DataContext.SetFavoritOrderCMD, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" CommandParameter="{Binding .}" Margin="10" Padding="5" ToolTip="Přidat do oblíbených" IsEnabled="{Binding Path=IsFavorit, Converter={StaticResource inverseBoolConverter}}">
+                                    <materialIcons:MaterialIcon Kind="FavoriteBorder" Height="40" Width="40" Style="{StaticResource iconStyle}"/>
                                     <Button.Resources>
                                         <Style TargetType="{x:Type Border}">
                                             <Setter Property="CornerRadius" Value="10"/>

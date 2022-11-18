@@ -47,15 +47,15 @@ namespace PizzaEShop.Data.Repository
             )).ToArray();
         }
 
-        public async Task SetFavoritOrder(OrderDTO order)
+        public async Task SetFavoritOrder(OrderDTO order, bool favorit)
         {
             using var dbContext = new SqlEFDataContext();
             bool vytvorena = await dbContext.Database.EnsureCreatedAsync();
 
             if ((await dbContext.Orders.ToListAsync()).Where(x => 
-                x.Id == order.Id).FirstOrDefault() is OrderEntity entity && entity.IsFavorit == false)
+                x.Id == order.Id).FirstOrDefault() is OrderEntity entity && entity.IsFavorit == !favorit)
             {
-                entity.IsFavorit = true;
+                entity.IsFavorit = favorit;
                 dbContext.Update(entity);
                 dbContext.SaveChanges();
             }

@@ -33,9 +33,9 @@ namespace PizzaEShop.Core
             return await repository.GetOrders();
         }
 
-        public async Task SetFavoritOrderd(OrderDTO order)
+        public async Task SetFavoritOrderd(OrderDTO order, bool favorit)
         {
-            await repository.SetFavoritOrder(order);
+            await repository.SetFavoritOrder(order, favorit);
         }
 
     }
