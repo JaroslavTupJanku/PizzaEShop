@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using PizzaEShop.Core;
 using PizzaEShop.Core.Enums;
 using PizzaEShop.Core.Interfaces;
@@ -11,18 +12,26 @@ using System.Linq;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace PizzaEShop.ViewModels
 {
-    public class FavoritOrderViewModel : IControlViewModel
+    public class FavoritOrderViewModel : ObservableObject, IControlViewModel
     {
         private readonly OrderManager manager;
         private readonly ShoppingCart cart;
+        private Visibility isControlVisible;
 
         public ICommand UnsetFavoritOrderCMD { get; set; }
         public ICommand AddPizzasToCartCMD { get; set; }
+
+        public Visibility IsControlVisible
+        {
+            get => isControlVisible;
+            set => SetProperty(ref isControlVisible, value);
+        }
 
         public ObservableCollection<OrderDTO> FavoritOrders { get; private set; } = new();
         public ControlType ControlType => ControlType.FavoritOrderControl;
@@ -49,8 +58,8 @@ namespace PizzaEShop.ViewModels
         {
             FavoritOrders.Clear();
             var list = Task.Run(async () => await manager.GetAllOrders());
-            list.Result.ToList().Where(x => x.IsFavorit == true).ToList()
-                       .ForEach(o => FavoritOrders.Add(o));
+            list.Result.ToList().Where(x => x.IsFavorit == true).ToList().ForEach(o => FavoritOrders.Add(o));
+            IsControlVisible = FavoritOrders.Count <= 0 ? Visibility.Hidden: Visibility.Visible;
         }
     }
 }

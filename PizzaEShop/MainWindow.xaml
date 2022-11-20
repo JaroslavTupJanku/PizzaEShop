@@ -16,9 +16,7 @@
             <Setter Property="CornerRadius" Value="20"/>
         </Style>
     </Window.Resources>
-    
 
-    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
@@ -29,7 +27,8 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="80"/>
-            <RowDefinition/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="120"/>
         </Grid.RowDefinitions>
 
         <!--MenuGrid-->
@@ -48,68 +47,83 @@
                 <ColumnDefinition Width="80"/>
                 <ColumnDefinition Width="50"/>
             </Grid.ColumnDefinitions>
-
             <materialIcons:MaterialIcon Kind="Pizzeria" Foreground="MediumPurple" />
             <StackPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left">
                 <TextBlock Text="Pizza" TextAlignment="Center" FontSize="15" Margin="0" Padding="0"/>
                 <TextBlock Text="Rozvoz" TextAlignment="Center" FontSize="20" FontWeight="Bold"/>
             </StackPanel>
-            <Button Grid.Column="4" Command="{Binding Path=GoToOrderHistoryCMD}" Background="Transparent" BorderThickness="0" Height="80" Width="80">
+            <Button Grid.Column="4" Command="{Binding Path=GoToOrderHistoryCMD}" Background="Transparent" ToolTip="Historie Objednávek" BorderThickness="0" Height="80" Width="80">
                 <materialIcons:MaterialIcon Kind="ClockEditOutline" Height="40" Width="40" />
             </Button>
-            <Button  Grid.Column="6" Command="{Binding Path=GoToFavoritOrderCMD}" Background="Transparent" BorderThickness="0" Height="80" Width="80">
+            <Button  Grid.Column="6" Command="{Binding Path=GoToFavoritOrderCMD}" Background="Transparent" ToolTip="Oblíbené Objednávky" BorderThickness="0" Height="80" Width="80">
                 <materialIcons:MaterialIcon Kind="FavoriteBorder" Height="40" Width="40" />
             </Button>
-            <Button  Grid.Column="8" Command="{Binding Path=GoToShoppingCartCMD}" Background="Transparent" BorderThickness="0" Height="80" Width="80">
+            <Button  Grid.Column="8" Command="{Binding Path=GoToShoppingCartCMD}" Background="Transparent" ToolTip="Košík" BorderThickness="0" Height="80" Width="80">
                 <materialIcons:MaterialIcon Kind="AddShoppingCart" Height="40" Width="40" />
             </Button>
-            <Button  Grid.Column="10" Command="{Binding Path=GoToMainPageCMD}" Background="Transparent" BorderThickness="0" Height="80" Width="80">
+            <Button  Grid.Column="10" Command="{Binding Path=GoToMainPageCMD}" Background="Transparent" ToolTip="Menu" BorderThickness="0" Height="80" Width="80">
                 <materialIcons:MaterialIcon Kind="Menu" Height="40" Width="40" />
             </Button>
         </Grid>
-        
-        <ContentControl Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Content="{Binding Control}" />
-        
+
+        <!--Control-->
+        <ScrollViewer Grid.Row="1" Grid.ColumnSpan="5">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="200"/>
+                </Grid.ColumnDefinitions>
+                <ContentControl Content="{Binding Control}" Grid.Column="1"  />
+            </Grid>
+        </ScrollViewer>
+
+        <Grid Grid.Row="2" Background="DarkGray" Grid.ColumnSpan="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="0.8*"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            
+            <StackPanel Grid.RowSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock Text="Adresa: " Foreground="White" HorizontalAlignment="Center" FontSize="25"/>
+                <TextBlock Text="Vymyšlená 16, Anonymní Město, 758 05 " Foreground="White" FontSize="11"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" Grid.RowSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock Text="Telefon: " Foreground="White" HorizontalAlignment="Center" FontSize="25"/>
+                <TextBlock Text="974 811 111"  Foreground="White" FontSize="30"/>
+            </StackPanel>
+
+            <StackPanel Grid.RowSpan="2" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock Text="Otevírací doba: " Foreground="White" HorizontalAlignment="Center" FontSize="25"/>
+                <Grid HorizontalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Pondělí - Čtvrtek" Foreground="White" FontSize="11"/>
+                    <TextBlock Grid.Column="2" Text="10:30 - 22:30" Foreground="White" FontSize="11"/>
+                    <TextBlock Grid.Row="1" Text="Pátek" Foreground="White" FontSize="11" HorizontalAlignment="Center"/>
+                    <TextBlock Grid.Row="1" Grid.Column="2" Text="10:30 - 22:30" Foreground="White" FontSize="11"/>
+                    <TextBlock Grid.Row="2" Text="Sobota" Foreground="White" FontSize="11" HorizontalAlignment="Center"/>
+                    <TextBlock Grid.Row="2" Grid.Column="2" Text="10:30 - 23:30" Foreground="White" FontSize="11"/>
+                    <TextBlock Grid.Row="3" Text="Neděle" Foreground="White" FontSize="12" HorizontalAlignment="Center"/>
+                    <TextBlock Grid.Row="3" Grid.Column="2" Text="Zavřeno" HorizontalAlignment="Center" Foreground="White" FontSize="11"/>
+                </Grid>
+            </StackPanel>
+        </Grid>
+
     </Grid>
 </Window>
-
-        
-        
-        
-        
-        
-        <!--<ListBox Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" Margin="50,0,50,0" ItemsSource="{Binding Path=PizzaList}" BorderThickness="0" >
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Text="{Binding Path=Name}" FontSize="10"/>
-                        <TextBlock Text="{Binding Path=Price}" Grid.Column="1"/>
-
-                    </Grid>
-                    
-                    --><!--<StackPanel Orientation="Horizontal">
-                        <StackPanel Style="{StaticResource VintagePanel}">
-                            <TextBlock Text="{Binding Vintage}" Style="{StaticResource VintageBlock}" />
-                            <TextBlock Text="Vintage" Style="{StaticResource VintageSubBlock}" />
-                        </StackPanel>
-                        <Border BorderBrush='DarkGray' BorderThickness='4' Margin='7,9'>
-                            <Border BorderBrush='White' BorderThickness='2'>
-                                <Border BorderBrush='Black' BorderThickness='1'>
-                                    <Image Source="{Binding ThumbnailUrl}" Style="{StaticResource ThumbNailPreview}" />
-                                </Border>
-                            </Border>
-                        </Border>
-                        --><!-- Wine Name --><!--
-                        <TextBlock Text="{Binding ShortWineName}" Margin="5" Style="{StaticResource TitleBlock}" HorizontalAlignment="Stretch" />
-                    </StackPanel>--><!--
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>-->

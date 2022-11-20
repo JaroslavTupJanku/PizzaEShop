@@ -8,7 +8,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DataContext="{d:DesignInstance Type=vm:OrderHistoryViewModel}"
-             d:DesignHeight="450" d:DesignWidth="800" Tag="{Binding ControlType}">
+             Tag="{Binding ControlType}">
     
     <UserControl.Resources>
         <conv:ExtraIngredinceToStringConverter x:Name="converter" x:Key="converter"/>
@@ -26,69 +26,77 @@
             </Style.Triggers>
         </Style>
     </UserControl.Resources>
-    
-   
+
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="5" />
-            <ColumnDefinition/>
-            <ColumnDefinition Width="5" />
-        </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Vertical" Visibility="{Binding Path=IsControlVisible, Converter={StaticResource visibilityConverter} }">
+            <materialIcons:MaterialIcon Kind="FaceSadOutline" Height="500" Width="500" Foreground="DarkGray"/>
+            <TextBlock HorizontalAlignment="Center" Text="Zatím nemáte žádné objednávky" Foreground="DarkGray" FontSize="30"/>
+        </StackPanel>
+        <Grid Visibility="{Binding Path=IsControlVisible}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition/>
+                <ColumnDefinition Width="5" />
+            </Grid.ColumnDefinitions>
 
-        <TextBlock Grid.ColumnSpan="2" Margin="0" Text="Historie Objednávek: " VerticalAlignment="Bottom" FontSize="20" Foreground="Gray" FontWeight="Bold" FontFamily="Comic Sans MS" FontStyle="Italic"/>
-        <ItemsControl ItemsSource="{Binding Path=Orders}" Margin="0,5,0,0" Grid.Column="1" BorderThickness="0" Background="Transparent" Grid.Row="1" >
-            <ItemsControl.ItemTemplate >
-                <DataTemplate>
-                    <Border BorderBrush="Gray" BorderThickness="1" Margin="0,0,0,10">
-                        <Grid Background="White">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
+            <TextBlock Grid.ColumnSpan="2" Margin="0" Text="Historie Objednávek: " VerticalAlignment="Bottom" FontSize="20" Foreground="Gray" FontWeight="Bold" FontFamily="Comic Sans MS" FontStyle="Italic"/>
+            <ItemsControl ItemsSource="{Binding Path=Orders}" Margin="0,5,0,0" Grid.Column="1" BorderThickness="0" Background="Transparent" Grid.Row="1" >
+                <ItemsControl.ItemTemplate >
+                    <DataTemplate>
+                        <Border BorderBrush="Gray" BorderThickness="1" Margin="0,0,0,10">
+                            <Grid Background="White">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
 
-                            <StackPanel Orientation="Horizontal">
-                                <Label Content="{Binding Path=Time}" Width="150" BorderThickness="1" BorderBrush="LightGray" HorizontalContentAlignment="Center"/>
-                                <Label Content="Objednávka" Width="150" BorderThickness="1" BorderBrush="LightGray" HorizontalContentAlignment="Center" />
-                            </StackPanel>
+                                <Grid MinHeight="35">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="{Binding Path=Time}" BorderThickness="1" BorderBrush="LightGray" HorizontalContentAlignment="Center" FontWeight="DemiBold"/>
+                                    <Label Grid.Column="1" Content="Objednávka" BorderThickness="1" BorderBrush="LightGray" HorizontalContentAlignment="Center" FontWeight="DemiBold" />
+                                </Grid>
 
-                            <Border BorderThickness="1" Grid.Row="1" BorderBrush="LightGray" Padding="5">
-                                <StackPanel Orientation="Horizontal" Grid.Row="1">
-                                    <materialIcons:MaterialIcon Kind="AddressMarker"/>
-                                    <Label Content="{Binding Converter={StaticResource addressConverter}}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+                                <Border BorderThickness="1,1,1,2" Grid.Row="1" BorderBrush="LightGray" Padding="5">
+                                    <StackPanel Orientation="Horizontal" Grid.Row="1" MinHeight="45" Width="300">
+                                        <materialIcons:MaterialIcon Kind="AddressMarker" Height="40" Width="40"/>
+                                        <Label Content="{Binding Converter={StaticResource addressConverter}}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="DemiBold" FontSize="15" />
+                                    </StackPanel>
+                                </Border>
+
+                                <ItemsControl ItemsSource="{Binding Path=Pizzas}" BorderBrush="LightGray" BorderThickness="1,1,1,2" AlternationCount="2" Grid.Column="1" Grid.RowSpan="2" ItemTemplate="{StaticResource PizzaControlTemplate}"/>
+                                <StackPanel Orientation="Vertical" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                    <TextBlock Text="{Binding Price, StringFormat={}{0} Kč}" Grid.Row="2" Foreground="Green" FontSize="15" TextAlignment="Center" FontWeight="Bold"/>
+                                    <TextBlock Text="Cena Celkem" Grid.Row="2" TextAlignment="Center" FontWeight="DemiBold" />
                                 </StackPanel>
-                            </Border>
 
-                            <ItemsControl ItemsSource="{Binding Path=Pizzas}" BorderBrush="LightGray" BorderThickness="0,1,1,1" AlternationCount="2" Grid.Column="1" Grid.RowSpan="2" ItemTemplate="{StaticResource PizzaControlTemplate}"/>
-                            <StackPanel Orientation="Vertical" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" >
-                                <TextBlock Text="{Binding Price, StringFormat={}{0} Kč}" Grid.Row="2" Foreground="Green" FontSize="15" TextAlignment="Center" FontWeight="Bold"/>
-                                <TextBlock Text="Cena Celkem" Grid.Row="2" TextAlignment="Center" />
-                            </StackPanel>
+                                <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Right" MinHeight="55">
+                                    <Button HorizontalAlignment="Right" Width="60" Background="White" BorderThickness="1" Command="{Binding DataContext.SetFavoritOrderCMD, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" CommandParameter="{Binding .}" Margin="10" Padding="5" ToolTip="Přidat do oblíbených" IsEnabled="{Binding Path=IsFavorit, Converter={StaticResource inverseBoolConverter}}">
+                                        <materialIcons:MaterialIcon Kind="FavoriteBorder" Height="40" Width="40" Style="{StaticResource iconStyle}"/>
+                                        <Button.Resources>
+                                            <Style TargetType="{x:Type Border}">
+                                                <Setter Property="CornerRadius" Value="10"/>
+                                            </Style>
+                                        </Button.Resources>
+                                    </Button>
+                                </StackPanel>
 
-                            <StackPanel Orientation="Horizontal" Grid.Column="2" Grid.Row="2" HorizontalAlignment="Right">
-                                <Button HorizontalAlignment="Right" Width="60" Background="White" BorderThickness="1" Command="{Binding DataContext.SetFavoritOrderCMD, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" CommandParameter="{Binding .}" Margin="10" Padding="5" ToolTip="Přidat do oblíbených" IsEnabled="{Binding Path=IsFavorit, Converter={StaticResource inverseBoolConverter}}">
-                                    <materialIcons:MaterialIcon Kind="FavoriteBorder" Height="40" Width="40" Style="{StaticResource iconStyle}"/>
-                                    <Button.Resources>
-                                        <Style TargetType="{x:Type Border}">
-                                            <Setter Property="CornerRadius" Value="10"/>
-                                        </Style>
-                                    </Button.Resources>
-                                </Button>
-                            </StackPanel>
-                            
-                        </Grid>
-                    </Border>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-            
-        </ItemsControl>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Grid>
     </Grid>
 </UserControl>

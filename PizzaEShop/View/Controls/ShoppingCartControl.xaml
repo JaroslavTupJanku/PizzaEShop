@@ -16,94 +16,105 @@
             <Setter Property="CornerRadius" Value="20"/>
         </Style>
     </UserControl.Resources>
-    
+
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="5" />
-            <ColumnDefinition Width="1.4*"/>
-            <ColumnDefinition Width="30" />
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="5" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="110"/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-
-        <TextBlock Grid.ColumnSpan="3" Text="Košík: " VerticalAlignment="Bottom" FontSize="20" Foreground="Gray" 
-                   FontWeight="Bold" FontFamily="Comic Sans MS" FontStyle="Italic"/>
-
-        <!--ListBox-->
-        <ListBox Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" ItemsSource="{Binding Path=Pizzas}" BorderThickness="0" AlternationCount="2" Background="Transparent" HorizontalContentAlignment="Stretch">
-            <ItemsControl.ItemContainerStyle>
-                <Style TargetType="ListBoxItem">
-                    <Style.Triggers>
-                        <Trigger Property="ItemsControl.AlternationIndex"  Value="0">
-                            <Setter Property="Background" Value="White" />
-                        </Trigger>
-                        <Trigger Property="ItemsControl.AlternationIndex"  Value="1">
-                            <Setter Property="Background" Value="Transparent" />
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </ItemsControl.ItemContainerStyle>
-
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="40" MaxHeight="40"/>
-                            <RowDefinition Height="40"/>
-                            <RowDefinition Height="auto"/>
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="40" MaxWidth="40"/>
-                            <ColumnDefinition Width="40"/>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="auto" />
-                        </Grid.ColumnDefinitions>
-
-                        <Button Background="Transparent" BorderThickness="0" Height="40" Width="40" CommandParameter="{Binding .}" Command="{Binding Path=DataContext.RemovePizzaCMD, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ToolTip="Odebrat Položku">
-                            <materialIcons:MaterialIcon Kind="RemoveBox" Height="40" Width="40" />
-                        </Button>
-
-                        <TextBlock Grid.Column="1" Grid.ColumnSpan="3" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding Path=Type}" FontSize="20" FontWeight="Bold"/>
-                        <TextBlock Grid.Row="1" Grid.ColumnSpan="3" Text="{Binding Path=Ingrediets, Converter={StaticResource converter }}" Foreground="LawnGreen" />
-
-                        <Grid Grid.Column="2" Grid.Row="2" HorizontalAlignment="Right">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Text="32cm" FontSize="15" VerticalAlignment="Center" />
-                            <TextBlock Grid.Column="1" Text="{ Binding Path=Price, StringFormat={}{0}Kč}" Margin="10,0" FontWeight="Bold" FontSize="20"/>
-                        </Grid>
-                        
-                    </Grid>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-        
-        <!--Neco-->
-        <Grid Grid.Column="3" Grid.Row="1" Background="White">
+        <StackPanel Orientation="Vertical" Visibility="{Binding Path=IsControlVisible, Converter={StaticResource visibilityConverter} }">
+            <materialIcons:MaterialIcon Kind="FaceSadOutline" Height="500" Width="500" Foreground="DarkGray"/>
+            <TextBlock HorizontalAlignment="Center" Text="Košík je prázdný" Foreground="DarkGray" FontSize="30"/>
+        </StackPanel>
+        <Grid Visibility="{Binding Path=IsControlVisible}">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="1.4*"/>
+                <ColumnDefinition Width="30" />
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="5" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition Height="2"/>
                 <RowDefinition Height="40"/>
+                <RowDefinition Height="140"/>
+                <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <TextBlock Margin="5" Text="Cena celkem" FontSize="15" FontWeight="Bold" Foreground="DarkGray" VerticalAlignment="Bottom"/>
-            <TextBlock Margin="5" Grid.Column="1" Text="{Binding Path=TotalPrice, StringFormat={}{0}Kč}" FontSize="15" FontWeight="Bold" Foreground="DarkGray" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
-            <Border Grid.Row="1" Grid.ColumnSpan="2" BorderBrush="WhiteSmoke" BorderThickness="0,0,0,1"/>
-            <Button Grid.Row="2" Content="Zpět" Command="{Binding GoToMenuControlCMD}" Foreground="DarkGray" FontWeight="Bold" FontSize="12" Background="Transparent" BorderThickness="0" />
-            <Button Grid.Row="2" Content="Pokračovat" Command="{Binding GoToAddressControlCMD}" Foreground="white" FontWeight="Bold" FontSize="12" Grid.Column="1" Background="LawnGreen" BorderThickness="0"/>
-            
+            <TextBlock Grid.ColumnSpan="3" Text="Košík: " VerticalAlignment="Bottom" FontSize="20" Foreground="Gray" 
+                   FontWeight="Bold" FontFamily="Comic Sans MS" FontStyle="Italic"/>
+
+            <!--ListBox-->
+            <ListBox Grid.Row="1" Grid.Column="1" Grid.RowSpan="2" ItemsSource="{Binding Path=Pizzas}" BorderThickness="0" AlternationCount="2" Background="Transparent" HorizontalContentAlignment="Stretch">
+                <ItemsControl.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="BorderBrush" Value="DarkGray"/>
+                        <Setter Property="BorderThickness" Value="0.2"/>
+                        <Style.Triggers>
+                            <Trigger Property="ItemsControl.AlternationIndex"  Value="0">
+                                <Setter Property="Background" Value="White" />
+                            </Trigger>
+                            <Trigger Property="ItemsControl.AlternationIndex"  Value="1">
+                                <Setter Property="Background" Value="Transparent" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="60" MaxHeight="60"/>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="40" MaxWidth="40"/>
+                                <ColumnDefinition Width="40"/>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <Button Background="Transparent" BorderThickness="0" Height="40" Width="40" CommandParameter="{Binding .}" Command="{Binding Path=DataContext.RemovePizzaCMD, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                HorizontalContentAlignment="Center" VerticalContentAlignment="Center" ToolTip="Odebrat Položku">
+                                <materialIcons:MaterialIcon Kind="RemoveBox" Height="40" Width="40" />
+                            </Button>
+
+                            <TextBlock Grid.Column="1" Grid.ColumnSpan="3" Margin="10,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding Path=Type}" FontSize="20" FontWeight="Bold"/>
+                            <TextBlock Grid.Row="1" Grid.ColumnSpan="3" Text="{Binding Path=Ingrediets, Converter={StaticResource converter }}" Foreground="LawnGreen" />
+
+                            <Grid Grid.Column="2" Grid.Row="2" HorizontalAlignment="Right">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="32cm" FontSize="15" VerticalAlignment="Center" />
+                                <TextBlock Grid.Column="1" Text="{ Binding Path=Price, StringFormat={}{0}Kč}" Margin="10,0" FontWeight="Bold" FontSize="20" Foreground="LawnGreen"/>
+                            </Grid>
+
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+            <!--Neco-->
+            <Border Grid.Column="3" Grid.Row="1" BorderThickness="1" BorderBrush="DarkGray">
+                <Grid Grid.Column="3" Grid.Row="1" Background="White">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="2"/>
+                        <RowDefinition Height="40"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Margin="5" Text="Cena celkem" FontSize="15" FontWeight="Bold" Foreground="DarkGray" VerticalAlignment="Bottom"/>
+                    <TextBlock Margin="5" Grid.Column="1" Text="{Binding Path=TotalPrice, StringFormat={}{0}Kč}" FontSize="15" FontWeight="Bold" Foreground="DarkGray" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
+                    <Border Grid.Row="1" Grid.ColumnSpan="2" BorderBrush="DarkGray" BorderThickness="0,0,0,1"/>
+                    <Button Grid.Row="2" Content="Zpět" Command="{Binding GoToMenuControlCMD}" Foreground="DarkGray" FontWeight="Bold" FontSize="12" Background="Transparent" BorderThickness="0" />
+                    <Button Grid.Row="2" Content="Pokračovat" Command="{Binding GoToAddressControlCMD}" Foreground="white" FontWeight="Bold" FontSize="12" Grid.Column="1" Background="LawnGreen" BorderBrush="DarkGray" BorderThickness="1,0,0,0"/>
+
+                </Grid>
+            </Border>
+
         </Grid>
     </Grid>
 </UserControl>

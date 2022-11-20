@@ -6,12 +6,14 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
-            
+
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="View/AppIcons.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
+            <conv:VisibleToHidenCoverter x:Name="visibilityConverter" x:Key="visibilityConverter"/>
             <conv:ExtraIngredinceToStringConverter x:Name="converter" x:Key="converter"/>
+            
             <DataTemplate x:Key="PizzaControlTemplate">
                 <Grid x:Name="Grid" Margin="30,0,30,0">
                     <Grid.ColumnDefinitions>
@@ -24,7 +26,7 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <TextBlock Text="{Binding Path=Type}" Margin="1,0,0,0"/>
-                    <TextBlock Text="{Binding Path=Price,  StringFormat={}{0}Kč}" Margin="0,0,1,0" Grid.Column="1" HorizontalAlignment="Right"/>
+                    <TextBlock Text="{Binding Path=Price,  StringFormat={}{0}Kč}" Margin="0,0,1,0" Grid.Column="1" HorizontalAlignment="Right" Foreground="Green"/>
                     <TextBlock Grid.Row="1" Margin="5,0,0,0" Grid.ColumnSpan="2" Text="{Binding Path=Ingrediets, Converter={StaticResource converter }}" Foreground="Green">
                         <TextBlock.Style>
                             <Style TargetType="TextBlock">

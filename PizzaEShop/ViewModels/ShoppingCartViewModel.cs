@@ -15,6 +15,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace PizzaEShop.ViewModels
@@ -24,18 +25,23 @@ namespace PizzaEShop.ViewModels
         private readonly ShoppingCart cart = null!;
         private readonly ControlProvider provider;
         private int totalPrice = int.MinValue;
+        private Visibility isControlVisible;
 
-        public bool Enabled { get; } = false;
         public ICommand RemovePizzaCMD { get; }
         public ICommand GoToAddressControlCMD { get; }
         public ICommand GoToMenuControlCMD { get; }
 
-        public ObservableCollection<PizzaDTO> Pizzas { get; private set; } = null!;
+        public ObservableCollection<PizzaDTO> Pizzas { get; private set; } = new();
         public ControlType ControlType { get; } = ControlType.ShoppingCartControl;
         public int TotalPrice
         {
             get => totalPrice;
             private set => SetProperty(ref totalPrice, value);
+        }
+        public Visibility IsControlVisible
+        {
+            get => isControlVisible;
+            set => SetProperty(ref isControlVisible, value);
         }
 
         public ShoppingCartViewModel(ShoppingCart cart, ControlProvider provider)
@@ -48,6 +54,7 @@ namespace PizzaEShop.ViewModels
             GoToMenuControlCMD = new RelayCommand(() => GoToPizzaMenuControl());
 
             Pizzas = new ObservableCollection<PizzaDTO>(cart.Pizzas);
+            IsControlVisible = Pizzas.Count <= 0 ? Visibility.Hidden : Visibility.Visible;
             TotalPrice = cart.TotalPrice;
         }
 

@@ -44,7 +44,7 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
-            <RowDefinition Height="110"/>
+            <RowDefinition Height="130"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
@@ -133,34 +133,37 @@
         </Grid>
         
         <!--Neco-->
-        <Grid Grid.Column="3" Grid.Row="1" Background="White">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="2*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-                <RowDefinition/>
-                <RowDefinition Height="2"/>
-                <RowDefinition Height="40"/>
-            </Grid.RowDefinitions>
+        <Border BorderThickness="1" BorderBrush="DarkGray" Grid.Column="3" Grid.Row="1">
+            <Grid  Background="White">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="2"/>
+                    <RowDefinition Height="40"/>
+                </Grid.RowDefinitions>
 
-            <TextBlock Margin="5" Text="Cena za dopravu" FontSize="12" Foreground="DarkGray" VerticalAlignment="Center"/>
-            <TextBlock Margin="5" Grid.Column="1" Text="{Binding Path=TransportCost}" FontSize="12" Foreground="DarkGray" VerticalAlignment="Center" HorizontalAlignment="Right"/>
-            <TextBlock Margin="5" Grid.Row="1" Text="Cena celkem" FontSize="15" FontWeight="Bold" Foreground="DarkGray" VerticalAlignment="Bottom"/>
-            <TextBlock Margin="5" Grid.Column="1"  Grid.Row="1" Text="{Binding Path=OrderPrize, StringFormat={}{0}Kč}" FontSize="12" Foreground="LawnGreen" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
-            <Border Grid.Row="2" Grid.ColumnSpan="2" BorderBrush="WhiteSmoke" BorderThickness="0,0,0,1"/>
-            <Button Grid.Row="3" Content="Zpět" Foreground="DarkGray" FontWeight="Bold" FontSize="12" Background="Transparent" BorderThickness="0" />
-            <Button Grid.Row="3" Content="Pokračovat" Foreground="white" FontWeight="Bold" FontSize="12" Grid.Column="1" Background="LawnGreen" BorderThickness="0" Command="{Binding Path=DataContext.CreateOrderCommand, RelativeSource={RelativeSource AncestorType=UserControl}}">
-                <Button.CommandParameter>
-                    <MultiBinding Converter="{StaticResource multiValueConverter}">
-                        <Binding ElementName="UliceTB" Path="Text"/>
-                        <Binding ElementName="MestoTB" Path="Text"/>
-                        <Binding ElementName="PSC_TB" Path="Text"/>
-                    </MultiBinding>
-                </Button.CommandParameter>
-            </Button>
-        </Grid>
+                <TextBlock Margin="5" Text="Cena za dopravu" FontSize="12" Foreground="DarkGray" VerticalAlignment="Center"/>
+                <TextBlock Margin="5" Grid.Column="1" Text="{Binding Path=TransportCost}" FontSize="12" Foreground="DarkGray" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                <TextBlock Margin="5" Grid.Row="1" Text="Cena celkem" FontSize="15" FontWeight="Bold" Foreground="DarkGray" VerticalAlignment="Bottom"/>
+                <TextBlock Margin="5" Grid.Column="1"  Grid.Row="1" Text="{Binding Path=OrderPrize, StringFormat={}{0}Kč}" FontSize="12" Foreground="LawnGreen" VerticalAlignment="Bottom" HorizontalAlignment="Right"/>
+                <Border Grid.Row="2" Grid.ColumnSpan="2" BorderBrush="WhiteSmoke" BorderThickness="0,0,0,1"/>
+                <Button Grid.Row="3" Content="Zpět" Foreground="DarkGray" FontWeight="Bold" FontSize="12" Background="Transparent" BorderThickness="0" />
+                <Button Grid.Row="3" Content="Pokračovat" Foreground="white" FontWeight="Bold" FontSize="12" Grid.Column="1" Background="LawnGreen" BorderThickness="0" Command="{Binding Path=DataContext.CreateOrderCommand, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                    <Button.CommandParameter>
+                        <MultiBinding Converter="{StaticResource multiValueConverter}">
+                            <Binding ElementName="UliceTB" Path="Text"/>
+                            <Binding ElementName="MestoTB" Path="Text"/>
+                            <Binding ElementName="PSC_TB" Path="Text"/>
+                        </MultiBinding>
+                    </Button.CommandParameter>
+                </Button>
+            </Grid>
+        </Border>
+
         
     </Grid>
 </UserControl>
