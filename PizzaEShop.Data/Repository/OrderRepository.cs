@@ -19,6 +19,8 @@ namespace PizzaEShop.Data.Repository
             var entity = new OrderEntity()
             {
                 Address = order.Address,
+                City = order.City,
+                PSC = order.PSC,               
                 Time = order.Time,
                 Price = order.Price,
                 Pizzas = order.Pizzas.Select(x => ConvertBack(x)).ToList()

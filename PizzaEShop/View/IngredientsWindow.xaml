@@ -9,7 +9,7 @@
         xmlns:local="clr-namespace:PizzaEShop.View"
         mc:Ignorable="d" d:DataContext="{d:DesignInstance Type=vm:IngredientsViewModel}" WindowStartupLocation="CenterScreen"
         Title="IngredientsWindow" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="Window" ResizeMode="NoResize"
-        Width="615">
+        Width="520">
 
     <Window.Resources>
         <conv:MultiValueConverter x:Key="MultiValueConverter"/>
@@ -40,14 +40,12 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="50"/>
                             <ColumnDefinition Width="50" />
-                            <ColumnDefinition Width="60"/>
-                            <ColumnDefinition Width="120"/>
+                            <ColumnDefinition Width="170"/>
+                            <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="60"/>
                             <ColumnDefinition Width="40" />
-                            <ColumnDefinition Width="60"/>
-                            <ColumnDefinition Width="80"/>
                             <ColumnDefinition Width="50"/>
-                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="50"/>
                         </Grid.ColumnDefinitions>
                         <Button Background="Transparent" BorderThickness="0" Content="{StaticResource remove}"  CommandParameter="{Binding IngredientType}"
                                 Command="{Binding DataContext.RemoveIngredientCMD, RelativeSource={RelativeSource AncestorType=ListBox}}"/>
@@ -55,7 +53,7 @@
                         <TextBlock Text="{Binding Path=Count, StringFormat={}{0}x}" Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="15" Foreground="DarkSlateGray"/>
                         <TextBlock Text="{Binding Path=IngredientType, StringFormat={}{0}Kč, Converter={StaticResource EnumToIntConverter }}" Grid.Column="6" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="15" Foreground="DarkSlateGray"/>
                         <Button Background="Transparent" BorderThickness="0" Grid.Column="8" Content="{StaticResource add}" CommandParameter="{Binding IngredientType}"
-                                Command="{Binding DataContext.AddIngredientCMD, RelativeSource={RelativeSource AncestorType=ListBox}}"/>
+                                Command="{Binding DataContext.AddIngredientCMD, RelativeSource={RelativeSource AncestorType=ListBox}}" HorizontalContentAlignment="Left"/>
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>

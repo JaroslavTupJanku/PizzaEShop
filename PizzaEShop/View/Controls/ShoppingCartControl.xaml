@@ -32,8 +32,8 @@
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="40"/>
-                <RowDefinition Height="140"/>
-                <RowDefinition/>
+                <RowDefinition Height="140" MaxHeight="140"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
             <TextBlock Grid.ColumnSpan="3" Text="Košík: " VerticalAlignment="Bottom" FontSize="20" Foreground="Gray" 

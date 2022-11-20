@@ -44,7 +44,7 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
-            <RowDefinition Height="130"/>
+            <RowDefinition Height="140" MaxHeight="140"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
@@ -158,6 +158,7 @@
                             <Binding ElementName="UliceTB" Path="Text"/>
                             <Binding ElementName="MestoTB" Path="Text"/>
                             <Binding ElementName="PSC_TB" Path="Text"/>
+                            <Binding ElementName="toggleButton" Path="IsChecked"/>
                         </MultiBinding>
                     </Button.CommandParameter>
                 </Button>
