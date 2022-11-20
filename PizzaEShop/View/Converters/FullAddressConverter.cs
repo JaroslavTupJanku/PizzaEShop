@@ -14,7 +14,7 @@ namespace PizzaEShop.View.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var item = (OrderDTO)value;
+            var item = (OrderDTO)value; 
             return item.Address == string.Empty || item.Address == string.Empty || item.Address == string.Empty
                 ? "Do vlastních rukou"
                 : $"{item.Address} {item.City}, {item.PSC}";
